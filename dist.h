@@ -2,6 +2,7 @@
 #include "math.h"
 #define pi 3.1415926535897932384626433832795
 #define EARTH_RAD 6378.137 //unit: km
+//calculate distance in unit of km
 double cal_dist(double longitude1, double latitude1, double longitude2, double latitude2)
 {
 	double rad_longtitude1 = pi * longitude1 / 180;
