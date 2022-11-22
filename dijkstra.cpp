@@ -1,4 +1,4 @@
-#include "heap_fordijkstra.h"
+#include "heap_dijkstra.h"
 #include "graph.h"
 //not sure about limits.h
 #include <limits.h>
