@@ -1,5 +1,6 @@
 #include <cstddef>
 #include <cmath>
+#include "heap_dijkstra.h"
 
 template <class T, class Compare>
 class heap;
