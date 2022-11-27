@@ -5,16 +5,16 @@ const int Graph::InvalidWeight = INT_MIN;
 const string Graph:: InvalidLabel = "_CS225INVALIDLABEL";
 const Edge Graph::InvalidEdge = Edge(Graph::InvalidVertex, Graph::InvalidVertex, Graph::InvalidWeight, Graph::InvalidLabel);
 
-Graph::Graph(bool weighted) : weighted(weighted),directed(false),random(Random(0))
+Graph::Graph(bool weighted_) : weighted(weighted_),directed(false),random(Random(0))
 {
 }
 
-Graph::Graph(bool weighted, bool directed) : weighted(weighted),directed(directed),random(Random(0))
+Graph::Graph(bool weighted_, bool directed_) : weighted(weighted_),directed(directed_),random(Random(0))
 {
 }
 
-Graph::Graph(bool weighted, int numVertices, unsigned long seed)
-    :weighted(weighted),
+Graph::Graph(bool weighted_, int numVertices, unsigned long seed)
+    :weighted(weighted_),
       directed(false),
      random(Random(seed)) 
 {
@@ -40,7 +40,7 @@ Graph::Graph(bool weighted, int numVertices, unsigned long seed)
         insertEdge(cur, next);
         if (weighted) 
         {
-            int weight = random.nextInt();
+            double weight = random.nextInt();
             setEdgeWeight(cur, next, weight);
         }
         cur = next;
@@ -182,7 +182,7 @@ string Graph::getEdgeLabel(Vertex source, Vertex destination) const
     return adjacency_list[source][destination].getLabel();
 }
 
-int Graph::getEdgeWeight(Vertex source, Vertex destination) const
+double Graph::getEdgeWeight(Vertex source, Vertex destination) const
 {
     if (!weighted)
         error("can't get edge weights on non-weighted graphs!");
@@ -273,7 +273,7 @@ Edge Graph::removeEdge(Vertex source, Vertex destination)
 }
 
 
-Edge Graph::setEdgeWeight(Vertex source, Vertex destination, int weight)
+Edge Graph::setEdgeWeight(Vertex source, Vertex destination, double weight)
 {
     if (assertEdgeExists(source, destination, __func__) == false)
         return InvalidEdge;
