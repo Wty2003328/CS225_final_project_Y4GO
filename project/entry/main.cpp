@@ -14,8 +14,13 @@ int main()
     vector<pair<Vertex, Vertex>> routes = information.generate_edges();
     vector<double> dist = information.calculate_dist();
     container calculator(airports, routes, dist);
-    vector<Vertex> min_transfer = calculator.solvebyBFS();
-    vector<Vertex> min_dist = calculator.solvebyDij();
+    string start,end;
+    cout << "Your place of departure:" << endl;
+    cin >> start;
+    cout << "Your destination:" << endl;
+    cin >> end;
+    vector<Vertex> min_transfer = calculator.solvebyBFS(start, end);
+    vector<Vertex> min_dist = calculator.solvebyDij(start, end);
     cout << "minimum transfer route:" << endl;
     for (auto it = min_transfer.begin(); it != min_transfer.end(); ++it)
     {
