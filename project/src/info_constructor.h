@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "dist.h"
 class info_container
 {
 public:
