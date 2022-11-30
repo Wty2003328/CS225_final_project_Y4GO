@@ -2,7 +2,6 @@
 #include <vector>
 #include "info_constructor.h"
 #include "graph_constructor.h"
-
 using namespace std;
 
 int main()
