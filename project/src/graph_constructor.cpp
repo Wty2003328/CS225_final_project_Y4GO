@@ -53,13 +53,18 @@ std::vector<Vertex> container::solvebyBFS(std::vector<Vertex> &airports, Vertex 
         }
     }
     auto it=visited.find(end);
+    if (it->second == "NONE")
+    {
+        solution.insert(solution.begin(), "Destination not reachable!");
+        return solution;
+    }
+        
     solution.insert(solution.begin(),end);
     while(it->second!="start")
     {
         solution.insert(solution.begin(),it->second);
         it=visited.find(it->second);
     }
-    solution.insert(solution.begin(),it->second);
     return solution;
 }
 
