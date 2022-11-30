@@ -8,7 +8,7 @@ public:
 	void clean();
 	void read();
 	std::vector<std::string> generate_vertices();
-	std::vector<std::string> generate_edges();
+	std::vector<std::pair<std::string,std::string>> generate_edges();
 	std::vector<double> calculate_dist();
 private:
 

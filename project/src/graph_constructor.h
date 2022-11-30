@@ -7,14 +7,18 @@
 #include <string>
 #include <queue>
 #include <unordered_map>
-#include "edge.h"
-#include "graph.h"
+#include "../lib/edge.h"
+#include "../lib/graph.h"
 class container
 { 
-	public:
+public:
 		container(std::vector<std::string>&vertices, std::vector<std::pair<std::string,std::string>>&edges, std::vector<double>&distances);
 		container(std::vector<std::string>&vertices, std::vector<std::pair<std::string,std::string>>&edges);
-		Graph inner;
+		
 		container();
-		std::vector<Vertex> solvebyBFS(std::vector<Vertex> &airports, Vertex start, Vertex end);
+		std::vector<Vertex> solvebyBFS(Vertex start, Vertex end);
+		std::vector<Vertex> solvebyDij(Vertex start, Vertex end);
+private:
+		Graph inner;
+		std::vector<Vertex> airports;
 };

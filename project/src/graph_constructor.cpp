@@ -4,6 +4,7 @@ container::container(std::vector<Vertex>&vertices, std::vector<std::pair<Vertex,
 	for(auto it=vertices.begin();it!=vertices.end();++it)
 	{
 		inner.insertVertex(*it);
+        airports.push_back(*it);
 	}
 	for(auto it=edges.begin();it!=edges.end();++it)
 	{
@@ -17,6 +18,7 @@ container::container(std::vector<Vertex>&vertices, std::vector<std::pair<Vertex,
 	for(auto it=vertices.begin();it!=vertices.end();++it)
 	{
 		inner.insertVertex(*it);
+        airports.push_back(*it);
 	}
 	for(auto it=edges.begin();it!=edges.end();++it)
 	{
@@ -24,7 +26,7 @@ container::container(std::vector<Vertex>&vertices, std::vector<std::pair<Vertex,
 	}
 	
 }
-std::vector<Vertex> container::solvebyBFS(std::vector<Vertex> &airports, Vertex start, Vertex end)
+std::vector<Vertex> container::solvebyBFS(Vertex start, Vertex end)
 {
     std::unordered_map<Vertex,Vertex> visited;
     std::vector<Vertex> solution;
