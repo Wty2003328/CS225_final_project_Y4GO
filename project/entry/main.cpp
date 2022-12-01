@@ -6,7 +6,7 @@ using namespace std;
 
 int main()
 {
-    info_container information("airport.txt", "routes.txt");
+    info_container information("../data/airport.txt", "../data/routes.txt");
     information.read();
     information.clean();
     vector<Vertex> airports = information.generate_vertices();
