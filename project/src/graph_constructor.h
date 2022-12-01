@@ -7,8 +7,7 @@
 #include <string>
 #include <queue>
 #include <unordered_map>
-#include "../lib/edge.h"
-#include "../lib/graph.h"
+#include "../lib/cs225/graph.h"
 class container
 { 
 public:

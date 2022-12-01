@@ -41,7 +41,7 @@ std::vector<Vertex> large_graph_path(Vertex start, Vertex end)
         std::pair<Vertex,Vertex>("z","h"),
     };
     container graph(airports, edges);
-    std::vector<Vertex> path = graph.solvebyBFS(airports, start, end);
+    std::vector<Vertex> path = graph.solvebyBFS(start, end);
     return path;
 }
 TEST_CASE("BFS works on small graph with all out directing graph", "[weight=0][part=1]") {
@@ -58,9 +58,10 @@ TEST_CASE("BFS works on small graph with all out directing graph", "[weight=0][p
         std::pair<Vertex,Vertex>("b","g")
     };
     container graph(airports, edges);
-    std::vector<Vertex> path = graph.solvebyBFS(airports, "a", "g");
+    std::vector<Vertex> path = graph.solvebyBFS("a", "g");
 	REQUIRE(path[0] == "a");
-    REQUIRE(path[1] == "g");
+    REQUIRE(path[1] == "b");
+    REQUIRE(path[2] == "g");
 }
 
 TEST_CASE("BFS works on small graph with undirected graph", "[weight=0][part=1]") {
@@ -79,13 +80,14 @@ TEST_CASE("BFS works on small graph with undirected graph", "[weight=0][part=1]"
         std::pair<Vertex,Vertex>("e","a"),
         std::pair<Vertex,Vertex>("a","f"),
         std::pair<Vertex,Vertex>("f","a"),
-        std::pair<Vertex,Vertex>("b","g")
+        std::pair<Vertex,Vertex>("b","g"),
         std::pair<Vertex,Vertex>("g","b")
     };
     container graph(airports, edges);
-    std::vector<Vertex> path = graph.solvebyBFS(airports, "a", "g");
+    std::vector<Vertex> path = graph.solvebyBFS("a", "g");
     REQUIRE(path[0] == "a");
-    REQUIRE(path[1] == "g");
+    REQUIRE(path[1] == "b");
+    REQUIRE(path[2] == "g");
 }
 
 TEST_CASE("BFS works on larger graph for unreachable vertex", "[weight=0][part=1]") {
@@ -109,7 +111,7 @@ TEST_CASE("BFS works on larger graph for reachable vertex", "[weight=0][part=1]"
     REQUIRE(path[3] == "o");
     REQUIRE(path[4] == "d");
     std::vector<Vertex> path1 = large_graph_path("a", "w");
-    REQUIRE(path[0] == "a");
-    REQUIRE(path[1] == "g");
-    REQUIRE(path[2] == "w");
+    REQUIRE(path1[0] == "a");
+    REQUIRE(path1[1] == "g");
+    REQUIRE(path1[2] == "w");
 }
