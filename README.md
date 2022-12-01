@@ -6,5 +6,5 @@ To run the project, please:
 3. change directory to build by "CD build".
 4. type "cmake.." in terminal of build folder to build project.
 5. compile the project by typing "make".
-6. to test the project, type "./test" aftering compiling.
+6. to test the project, type "./test" after compiling.
 7. to run the project, type "./main" after compiling.
