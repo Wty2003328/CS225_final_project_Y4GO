@@ -115,6 +115,9 @@ void info_container::read()
     for(unsigned long i = 0; i < airport_v.size();i++) {
         code_airport.insert(std::make_pair(airports_s[i].airport_code_, airports_v[i]));    //code need to choose
         name_airport.insert(std::make_pair(airports_s[i].airport_name_, airports_v[i]));
+    }
+
+    for(unsigned long i = 0; i < route_v.size();i++) {
         pair_route.insert(std::make_pair(route_pairs[i], routes_s[i]));
     }
 }
