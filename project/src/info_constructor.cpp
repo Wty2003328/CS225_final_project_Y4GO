@@ -22,6 +22,7 @@ double info_container::cal_dist(double longitude1, double latitude1, double long
 	dist = dist * EARTH_RAD;
 	return dist;
 }
+
 info_container::info_container(std::string & airports, std::string & routes)
 {
 	airports_ = airports;
@@ -36,10 +37,11 @@ void info_container::clean()
 }
 
 void info_container::cleanAirport() {
-    for (int i = 0; i < airport_v.size(); ) {  
+    for (unsigned long i = 0; i < airport_v.size(); ) {  
         double latitude = stod(airport_v[i][7]);
         double longitude = stod(airport_v[i][8]);
-        if (airport_v[i][1].find("Air Base") == std::string::npos) {    //delete airbase
+        std::string::size_type findName;
+        if ((findName = airport_v[i][1].find("Air Base")) == std::string::npos) {    //delete airbase
             if((latitude > -90 && latitude < 90) && (longitude > -180 && longitude < 180)) {    //delete beyond
 				if(airport_v[i].size() == 8) {    //if information lost, then delete it
 					i ++ ;
@@ -53,9 +55,9 @@ void info_container::cleanAirport() {
 }
 
 void info_container::cleanRoute() {   //delete the route that src/dest not in the list
-    for (int i = 0; i < route_v.size(); ) { 
-        if (count(route_v.begin(), route_v.end(), route_v[i][3]) != 0
-            && count(route_v.begin(), route_v.end(), route_v[i][5]) != 0) {
+    for (unsigned long i = 0; i < route_v.size(); ) { 
+        if (std::count(AirportCode.begin(), AirportCode.end(), route_v[i][3]) != 0
+            && std::count(AirportCode.begin(), AirportCode.end(), route_v[i][5]) != 0) {
                 i ++ ;
         }
         else {
@@ -103,25 +105,25 @@ std::vector<std::vector<std::string>> info_container::transferFile(const std::st
 }
 
 void info_container::getAirportName() {
-    for(int i = 0; i < airport_v.size();i++) {    
+    for(unsigned long i = 0; i < airport_v.size();i++) {    
         AirportName[i] = airport_v[i][1];
     }
 }
 void info_container::getAirportCode() {
-    for(int i = 0; i < airport_v.size();i++) {    
+    for(unsigned long i = 0; i < airport_v.size();i++) {    
         AirportCode[i] = airport_v[i][0];
     }
 }
 
 void info_container::getRoute() {
-    for(int i = 0; i < route_v.size();i++) {    
+    for(unsigned long i = 0; i < route_v.size();i++) {    
         allRoute[i].first = route_v[i][3];     //first--src, second--dest
         allRoute[i].second = route_v[i][5];
     }
 }
 
 void info_container::getStruct() {
-    for(int i = 0; i < airport_v.size();i++) {
+    for(unsigned long i = 0; i < airport_v.size();i++) {
         std::string id = airport_v[i][0];
         struct airports s;
         s.code_ = airport_v[i][0];
@@ -132,7 +134,7 @@ void info_container::getStruct() {
 }
 
 std::vector<std::string> info_container::generate_vertices()
-{
+{    
     return std::vector<std::string>();
 }
 
