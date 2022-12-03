@@ -73,7 +73,7 @@ std::vector<Vertex> container::solvebyBFS(Vertex start, Vertex end)
 
 std::vector<Vertex> container::solvebyDij(Vertex start, Vertex end)
 {   
-    map<Vertex, int> d;
+    map<Vertex, double> d;
     map<Vertex, Vertex> p;
     vector<Vertex> nodes = inner.getVertices();
     for(unsigned i = 0; i < nodes.size(); i++) {
@@ -82,36 +82,31 @@ std::vector<Vertex> container::solvebyDij(Vertex start, Vertex end)
     }
     d[start] = 0;
     
-    //set up queue and new graph for traversal 
-    vector<Vertex> heap_;
-    make_heap(heap_.begin(), heap_.end());
-    Graph T = new Graph(true,true);
-
-    //finding shortest path
-    while(heap_.empty() == false) {
-        //removemin form q
-         Vertex u = heap_[0];
-        pop_heap(heap_.begin(), heap_.end());
-        T.insertVertex(u);
-        //check aroung the neighbor
+    priority_queue<pair<double, Vertex>, vector<pair<double, Vertex>>, greater<pair<double, Vertex>> > queue_;
+    queue_.push(make_pair(0, start));
+  
+    while (queue_.empty() == false) {
+        
+        Vertex u = queue_.top().second;
+        queue_.pop();
+ 
+        
         vector<Vertex> temp = inner.getAdjacent(u);
         for(unsigned i = 0; i < temp.size();i++) {
-            if(T.vertexExists(temp[i]) == false) {
-                //if(distance(u, it) + d[u] <d[it]) {
-                    if(1 + d[u] <d[temp[i]])
-                    //d[it] = distance(u, it) + d[u];
-                    d[temp[i]] = 1 + d[u];
-                    p[temp[i]] = u;
-                    heap_.push_back(temp[i]);
-                    push_heap(heap_.begin(), heap_.end());
-                }
+           
+            Vertex v = temp[i];
+            double length = inner.getEdge(u,v).getWeight();
+            if (d[v] > d[u] + length) {
+                d[v] = d[u] + length;
+                p[v] = u;
+                queue_.push(make_pair(d[v], v));
             }
         }
-    //temporaily return the total number of distance, may change it according to the final output we want
+    }
     Vertex find = end;
     vector<Vertex> output;
-    int i = 0;
     output.push_back(end);
+    int i = 0;
     while(p[find] != start) {
         i++;
         output.push_back(p[find]);
@@ -123,8 +118,12 @@ std::vector<Vertex> container::solvebyDij(Vertex start, Vertex end)
         }
     }
     output.push_back(start);
+
+
+    vector<Vertex> output2;
     for(unsigned i = 0; i < output.size();i++) {
-        std::cout << output[i] << std::endl;
+        output2.push_back(output[output.size() - 1 - i]);
     }
-    return output;
+
+    return output2;
 }
