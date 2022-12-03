@@ -5,17 +5,27 @@
 #include <vector>
 
 #include "info_constructor.h"
+TEST_CASE("try read correct airport and routes", "[weight=0][part=1]") {
 
-TEST_CASE("Get small dataset of airlines, '.txt'", "[weight=0][part=1]") {
-	/*
-       a is the center, b,c,d,e,f are points around a and a has edges pointing to them, g is the point at one layer further and is 
-    */
-    info_container information("../data/airport_test_1.txt", "../data/routes_test_1.txt");
+    info_container information("../tests/information_test_airport.txt", "../tests/information_test_routes.txt");
     information.read();
     information.clean();
-    // vector<Vertex> airports = information.generate_vertices();
-    // vector<pair<Vertex, Vertex>> routes = information.generate_edges();
-    // vector<double> dist = information.calculate_dist();
-    cout << airport_v;
-    cout << route_v;
+    std::vector<Vertex> airports = information.generate_vertices();
+    std::vector<std::pair<Vertex, Vertex>> routes = information.generate_edges();
+    REQUIRE(airports.size()=5);
+    REQUIRE(routes.size()=4);
+    REQUIRE(airports[0]="Goroka Airport");
+    REQUIRE(airports[1]="Madang Airport");
+    REQUIRE(airports[2]="Mount Hagen Kagamuga Airport");
+    REQUIRE(airports[3]="Nadzab Airport");
+    REQUIRE(airports[4]="Port Moresby Jacksons International Airport");
+    
+    REQUIRE(routes[0].first=="Goroka Airport");
+    REQUIRE(routes[0].second="Madang Airport");
+    REQUIRE(routes[1].first="Madang Airport");
+    REQUIRE(routes[1].second="Mount Hagen Kagamuga Airport");
+    REQUIRE(routes[2].first="Nadzab Airport");
+    REQUIRE(routes[2].second="Port Moresby Jacksons International Airport");
+    REQUIRE(routes[3].first="Goroka Airport");
+    REQUIRE(routes[3].second="Port Moresby Jacksons International Airport");
 }
