@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include "math.h"
-
+#include "../lib/cs225/graph.h"
 #include <utility>
 #include <iostream>
 #include <map>
@@ -18,7 +18,7 @@
 class info_container
 {
 public:
-	info_container(std::string & airports, std::string & routes);
+	info_container(std::string airports, std::string routes);
 	void getAirportName();
 	void getAirportCode();
 	void getRoute();
@@ -38,7 +38,7 @@ public:
 	std::string readfile(const std::string & filename);
 	std::vector<std::vector<std::string>> transferFile(const std::string & filename);
 
-	int info_container::divide(const std::string &line, char ch, std::vector<std::string> &temp);
+	int divide(const std::string &line, char ch, std::vector<std::string> &temp);
 	std::string TrimRight(const std::string & str);
 	std::string TrimLeft(const std::string & str);
 	std::string Trim(const std::string & str);

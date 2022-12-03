@@ -23,7 +23,7 @@ double info_container::cal_dist(double longitude1, double latitude1, double long
 	return dist;
 }
 
-info_container::info_container(std::string & airports, std::string & routes)
+info_container::info_container(std::string airports, std::string routes)
 {
 	airports_ = airports;
 	routes_ = routes;
