@@ -1,4 +1,5 @@
 #include "graph_constructor.h"
+using namespace std;
 container::container(std::vector<Vertex>&vertices, std::vector<std::pair<Vertex,Vertex>>&edges, std::vector<double>&distances):inner(Graph(true,true))
 {
 	for(auto it=vertices.begin();it!=vertices.end();++it)
@@ -71,6 +72,59 @@ std::vector<Vertex> container::solvebyBFS(Vertex start, Vertex end)
 }
 
 std::vector<Vertex> container::solvebyDij(Vertex start, Vertex end)
-{
-    return std::vector<Vertex>();
+{   
+    map<Vertex, int> d;
+    map<Vertex, Vertex> p;
+    vector<Vertex> nodes = inner.getVertices();
+    for(unsigned i = 0; i < nodes.size(); i++) {
+        d[nodes[i]] = INT_MAX;
+        p[nodes[i]] = "0";
+    }
+    d[start] = 0;
+    
+    //set up queue and new graph for traversal 
+    vector<Vertex> heap_;
+    make_heap(heap_.begin(), heap_.end());
+    Graph T = new Graph(true,true);
+
+    //finding shortest path
+    while(heap_.empty() == false) {
+        //removemin form q
+         Vertex u = heap_[0];
+        pop_heap(heap_.begin(), heap_.end());
+        T.insertVertex(u);
+        //check aroung the neighbor
+        vector<Vertex> temp = inner.getAdjacent(u);
+        for(unsigned i = 0; i < temp.size();i++) {
+            if(T.vertexExists(temp[i]) == false) {
+                //if(distance(u, it) + d[u] <d[it]) {
+                    if(1 + d[u] <d[temp[i]])
+                    //d[it] = distance(u, it) + d[u];
+                    d[temp[i]] = 1 + d[u];
+                    p[temp[i]] = u;
+                    heap_.push_back(temp[i]);
+                    push_heap(heap_.begin(), heap_.end());
+                }
+            }
+        }
+    //temporaily return the total number of distance, may change it according to the final output we want
+    Vertex find = end;
+    vector<Vertex> output;
+    int i = 0;
+    output.push_back(end);
+    while(p[find] != start) {
+        i++;
+        output.push_back(p[find]);
+        find = p[find];
+        if(i > 1000) {
+             vector<Vertex> output1;
+            output1.push_back("Destination not reachable!");
+            return output1;
+        }
+    }
+    output.push_back(start);
+    for(unsigned i = 0; i < output.size();i++) {
+        std::cout << output[i] << std::endl;
+    }
+    return output;
 }
