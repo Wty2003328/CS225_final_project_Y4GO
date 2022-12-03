@@ -10,7 +10,7 @@ container::container(std::vector<Vertex>&vertices, std::vector<std::pair<Vertex,
 	for(auto it=edges.begin();it!=edges.end();++it)
 	{
 		inner.insertEdge(it->first,it->second);
-		inner.setEdgeWeight(it->first,it->second,distances[it->edges.begin()]);
+		inner.setEdgeWeight(it->first,it->second,distances[it-edges.begin()]);
 	}
 	
 }
