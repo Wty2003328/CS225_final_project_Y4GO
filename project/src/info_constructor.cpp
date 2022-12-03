@@ -23,16 +23,19 @@ double info_container::cal_dist(double longitude1, double latitude1, double long
 	return dist;
 }
 
-info_container::info_container(std::string airports, std::string routes)
+info_container::info_container(std::string & airports, std::string & routes, std::string & airlines)
 {
 	airports_ = airports;
 	routes_ = routes;
+    airline_ = airline;
 }
 
 void info_container::clean()
 {
     cleanAirport();
+    getAirportCode();
 	cleanRoute();
+    getRoute();
 	return;
 }
 
@@ -70,8 +73,50 @@ void info_container::read()
 {
     airport_v = transferFile(airports_);
 	route_v = transferFile(routes_);
+    airline_v = transferFile(airline_);
 
-	return;
+    for(unsigned long i = 0; i < airport_v.size();i++) {
+        struct airport_s s;
+        s.city_ = airport_v[i][2];
+        s.airport_name_ = airport_v[i][1];
+        s.latitude_ = airport_v[i][6];
+        s.longtitude_ = airport_v[i][7];
+        s.altitude_ = airport_v[i][8];
+        s.airport_IATA_ = airport_v[i][4];    //3
+        s.airport_ICAO_ = airport_v[i][5];    //4
+        s.airport_country_ = airport_v[i][3];
+
+        airports_s.push_back(s);
+    }
+
+    for(unsigned long i = 0; i < route_v.size();i++) {
+        struct route_s s;
+        s.airline_ = route_v[i][0];
+        s.src_code_ = route_v[i][2];        //3 or 4
+        s.dest_code_ = route_v[i][4];       //3 or 4
+        
+        routes_s.push_back(s);   
+        
+        std::pair<std::string, std::string> route_pair(s.src_code_, s.dest_code_);
+        route_pairs.push_back(route_pair);
+    }
+
+    for(unsigned long i = 0; i < airline_.size();i++) {
+        struct airline_s s;
+        s.airline_name_ = route_v[i][1];
+        s.airline_IATA_ = route_v[i][3];     //2
+        s.airline_ICAO_ = route_v[i][4];     //3
+        s.airline_country_ = route_v[i][5];
+        s.active_ = route_v[i][6];
+
+        airlines_s.push_back(s);
+    }
+
+    for(unsigned long i = 0; i < airport_v.size();i++) {
+        code_airport.insert(std::make_pair(airports_s[i].airport_code_, airports_v[i]));    //code need to choose
+        name_airport.insert(std::make_pair(airports_s[i].airport_name_, airports_v[i]));
+        pair_route.insert(std::make_pair(route_pairs[i], routes_s[i]));
+    }
 }
 
 std::string info_container::readfile(const std::string& filename){
@@ -104,11 +149,12 @@ std::vector<std::vector<std::string>> info_container::transferFile(const std::st
     return newV2D;
 }
 
-void info_container::getAirportName() {
-    for(unsigned long i = 0; i < airport_v.size();i++) {    
-        AirportName[i] = airport_v[i][1];
-    }
-}
+// void info_container::getAirportName() {
+//     for(unsigned long i = 0; i < airport_v.size();i++) {    
+//         AirportName[i] = airport_v[i][1];
+//     }
+// }
+
 void info_container::getAirportCode() {
     for(unsigned long i = 0; i < airport_v.size();i++) {    
         AirportCode[i] = airport_v[i][0];
@@ -119,17 +165,6 @@ void info_container::getRoute() {
     for(unsigned long i = 0; i < route_v.size();i++) {    
         allRoute[i].first = route_v[i][3];     //first--src, second--dest
         allRoute[i].second = route_v[i][5];
-    }
-}
-
-void info_container::getStruct() {
-    for(unsigned long i = 0; i < airport_v.size();i++) {
-        std::string id = airport_v[i][0];
-        struct airports s;
-        s.code_ = airport_v[i][0];
-        s.name_ = airport_v[i][1];
-        s.latitude_ = airport_v[i][6];
-        s.longtitude_ = airport_v[i][7];
     }
 }
 
@@ -145,8 +180,22 @@ std::vector<std::pair<std::string,std::string>> info_container::generate_edges()
 
 std::vector<double> info_container::calculate_dist()
 {
+    std::vector<double> calculate_dists;
+    for(unsigned long i = 0; i < allRoute.size();i++) {
+        std::vector<std::string> src = code_airport.get(allRoute.first);
+        std::vector<std::string> dest = code_airport.get(allRoute.second);
+        
+        double longitude1 = stod(src[8]);
+        double latitude1 = stod(src[7]);
+        double longitude2 = stod(dest[8]);
+        double latitude2 = stod(dest[7]);
+
+        calculate_dists.push_back(cal_dist(longitude1, latitude1, longitude2, latitude2));
+    }
     return std::vector<double>();
 }
+
+
 
 int info_container::divide(const std::string &line, char ch, std::vector<std::string> &temp) {
     std::string newLine = line;
