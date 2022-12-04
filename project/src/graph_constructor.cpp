@@ -75,32 +75,34 @@ std::vector<Vertex> container::solvebyDij(Vertex start, Vertex end)
 {   
     map<Vertex, double> d;
     map<Vertex, Vertex> p;
+    map<Vertex, bool> visited;
     vector<Vertex> nodes = inner.getVertices();
     for(unsigned i = 0; i < nodes.size(); i++) {
         d[nodes[i]] = INT_MAX;
         p[nodes[i]] = "0";
+        visited[nodes[i]] = false;
     }
     d[start] = 0;
     
     priority_queue<pair<double, Vertex>, vector<pair<double, Vertex>>, greater<pair<double, Vertex>> > queue_;
     queue_.push(make_pair(0, start));
-  
+    visited[start] = true;
     while (queue_.empty() == false) {
         
         Vertex u = queue_.top().second;
         queue_.pop();
- 
-        
         vector<Vertex> temp = inner.getAdjacent(u);
         for(unsigned i = 0; i < temp.size();i++) {
-           
-            Vertex v = temp[i];
+             Vertex v = temp[i];
+           if(visited[v] == false) {
+            visited[v] = true;
             double length = inner.getEdge(u,v).getWeight();
             if (d[v] > d[u] + length) {
                 d[v] = d[u] + length;
                 p[v] = u;
                 queue_.push(make_pair(d[v], v));
             }
+           }
         }
     }
     Vertex find = end;
