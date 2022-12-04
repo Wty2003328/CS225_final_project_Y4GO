@@ -1,2 +1,0 @@
-/usr/bin/ar qc libcs225.a CMakeFiles/cs225.dir/cs225/graph.cpp.o
-/usr/bin/ranlib libcs225.a
