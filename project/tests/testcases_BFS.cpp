@@ -56,7 +56,7 @@ TEST_CASE("BFS works on small graph with all out directing graph", "[weight=0][p
     };
     container graph(airports, edges);
     std::vector<Vertex> path = graph.solvebyBFS("a", "g");
-    REQUIRE(path.size()=3);
+    REQUIRE(path.size()==3);
 	REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
     REQUIRE(path[2] == "g");
@@ -83,7 +83,7 @@ TEST_CASE("BFS works on small graph with undirected graph", "[weight=0][part=1]"
     };
     container graph(airports, edges);
     std::vector<Vertex> path = graph.solvebyBFS("a", "g");
-    REQUIRE(path.size()=3);
+    REQUIRE(path.size()==3);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
     REQUIRE(path[2] == "g");
@@ -98,14 +98,14 @@ TEST_CASE("BFS works on larger graph for unreachable vertex", "[weight=0][part=1
 
 TEST_CASE("BFS works on larger graph for reachable vertex", "[weight=0][part=1]") {
     std::vector<Vertex> path = large_graph_path("a", "d");
-    REQUIRE(path.size()=5);
+    REQUIRE(path.size()==5);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
     REQUIRE(path[2] == "y");
     REQUIRE(path[3] == "o");
     REQUIRE(path[4] == "d");
     std::vector<Vertex> path1 = large_graph_path("a", "w");
-    REQUIRE(path1.size()=3);
+    REQUIRE(path1.size()==3);
     REQUIRE(path1[0] == "a");
     REQUIRE(path1[1] == "g");
     REQUIRE(path1[2] == "w");

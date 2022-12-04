@@ -101,7 +101,7 @@ TEST_CASE("Dij works on small graph with all out directing unweighted graph", "[
     std::vector<double> distances = vector<double>(edges.size(), 1);
     container graph(airports, edges, distances);
     std::vector<Vertex> path = graph.solvebyDij("a", "g");
-    REQUIRE(path.size()=3);
+    REQUIRE(path.size()==3);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
     REQUIRE(path[2] == "g");
@@ -129,7 +129,7 @@ TEST_CASE("Dij works on small graph with undirected unweighted graph", "[weight=
     std::vector<double> distances = vector<double>(edges.size(), 1);
     container graph(airports, edges, distances);
     std::vector<Vertex> path = graph.solvebyDij("a", "g");
-    REQUIRE(path.size()=3);
+    REQUIRE(path.size()==3);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
     REQUIRE(path[2] == "g");
@@ -145,14 +145,14 @@ TEST_CASE("Dij works on larger unweighted graph for unreachable vertex", "[weigh
 TEST_CASE("Dij works on larger unweighted graph for reachable vertex", "[weight=0][part=1]") {
 
     std::vector<Vertex> path = large_graph_path_weighted("a", "d");
-    REQUIRE(path.size()=5);
+    REQUIRE(path.size()==5);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
     REQUIRE(path[2] == "y");
     REQUIRE(path[3] == "o");
     REQUIRE(path[4] == "d");
     std::vector<Vertex> path1 = large_graph_path_weighted("a", "w");
-    REQUIRE(path1.size()=3);
+    REQUIRE(path1.size()==3);
     REQUIRE(path1[0] == "a");
     REQUIRE(path1[1] == "g");
     REQUIRE(path1[2] == "w");
@@ -173,7 +173,7 @@ TEST_CASE("Dij works on small graph with all out directing weighted graph", "[we
     std::vector<double> distances = {2, 2, 3, 3, 3, 4};
     container graph(airports, edges, distances);
     std::vector<Vertex> path = graph.solvebyDij("a", "g");
-    REQUIRE(path.size()=3);
+    REQUIRE(path.size()==3);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
     REQUIRE(path[2] == "g");
@@ -201,7 +201,7 @@ TEST_CASE("Dij works  on small graph with undirected weighted graph", "[weight=0
     std::vector<double> distances = {2,2,1,1,5,5,4,4,3,3,8,8};
     container graph(airports, edges, distances);
     std::vector<Vertex> path = graph.solvebyDij("a", "g");
-    REQUIRE(path.size()=3);
+    REQUIRE(path.size()==3);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
     REQUIRE(path[2] == "g");
@@ -217,14 +217,14 @@ TEST_CASE("Dij works on larger weighted graph for unreachable vertex", "[weight=
 
 TEST_CASE("Dij works on larger weighted graph for reachable vertex", "[weight=0][part=1]") {
     std::vector<Vertex> path = large_graph_path_weighted("a", "d");
-    REQUIRE(path.size()=5);
+    REQUIRE(path.size()==5);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
     REQUIRE(path[2] == "y");
     REQUIRE(path[3] == "o");
     REQUIRE(path[4] == "d");
     std::vector<Vertex> path1 = large_graph_path_weighted("a", "w");
-    REQUIRE(path1.size()=3);
+    REQUIRE(path1.size()==3);
     REQUIRE(path1[0] == "a");
     REQUIRE(path1[1] == "g");
     REQUIRE(path1[2] == "w");
@@ -232,12 +232,12 @@ TEST_CASE("Dij works on larger weighted graph for reachable vertex", "[weight=0]
 
 TEST_CASE("More Dij works on larger weighted graph for reachable vertex", "[weight=0][part=1]") {
     std::vector<Vertex> path = large_graph_path_weighted("a", "y");
-    REQUIRE(path.size()=3);
+    REQUIRE(path.size()==3);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
     REQUIRE(path[2] == "y");
     std::vector<Vertex> path1 = large_graph_path_weighted("a", "l");
-    REQUIRE(path1.size()=3);
+    REQUIRE(path1.size()==3);
     REQUIRE(path1[0] == "a");
     REQUIRE(path1[1] == "c");
     REQUIRE(path1[2] == "l");
@@ -245,13 +245,13 @@ TEST_CASE("More Dij works on larger weighted graph for reachable vertex", "[weig
 
 TEST_CASE("Further Dij works on larger weighted graph for reachable vertex", "[weight=0][part=1]") {
     std::vector<Vertex> path = large_graph_path_weighted("d", "e");
-    REQUIRE(path.size()=4);
+    REQUIRE(path.size()==4);
     REQUIRE(path[0] == "d");
     REQUIRE(path[1] == "a");
     REQUIRE(path[2] == "j");
     REQUIRE(path[3] == "e");
     std::vector<Vertex> path1 = large_graph_path_weighted("d", "f");
-    REQUIRE(path1.size()=4);
+    REQUIRE(path1.size()==4);
     REQUIRE(path1[0] == "d");
     REQUIRE(path1[1] == "a");
     REQUIRE(path1[2] == "b");

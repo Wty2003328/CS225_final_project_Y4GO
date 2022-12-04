@@ -6,7 +6,7 @@ using namespace std;
 
 int main()
 {
-    info_container information("../data/airport.txt", "../data/routes.txt");
+    info_container information("../data/airports.txt", "../data/routes.txt","../data/airlines.txt");
     information.read();
     information.clean();
     vector<Vertex> airports = information.generate_vertices();
@@ -15,9 +15,9 @@ int main()
     container calculator(airports, routes, dist);
     string start,end;
     cout << "Your place of departure:" << endl;
-    cin >> start;
+    getline(cin,start);
     cout << "Your destination:" << endl;
-    cin >> end;
+    getline(cin,end);
     vector<Vertex> min_transfer = calculator.solvebyBFS(start, end);
     vector<Vertex> min_dist = calculator.solvebyDij(start, end);
     cout << "minimum transfer route:" << endl;
