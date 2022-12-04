@@ -25,25 +25,12 @@ std::vector<double> info_container::calculate_dist()
 
 std::vector<std::string> info_container::generate_vertices()
 {    
-    std::vector<std::string> result;
-    for(unsigned idx=0;idx<airports_s.size();idx++)
-    {
-        result.push_back(airports_s[idx].airport_name_);
-    }
-    return result;
+    return vertices;
 }
 
 std::vector<std::pair<std::string,std::string>> info_container::generate_edges()
 {
-    std::vector<std::pair<std::string,std::string>> result;
-    for(unsigned idx=0;idx<routes_s.size();idx++)
-    {
-        result.push_back(std::pair<std::string,std::string>(
-            code_airport.find(routes_s[idx].src_code_)->second.airport_name_,
-                code_airport.find(routes_s[idx].dest_code_)->second.airport_name_));
-    }
-    
-    return result;
+    return route_pair;
 }
 
 info_container::info_container(std::string airports, std::string routes, std::string airlines)
@@ -110,6 +97,7 @@ void info_container::cleanAirport() {
     }
     for(unsigned idx=0;idx<airports_s.size();idx++)
     {
+        vertices.push_back(airports_s[idx].airport_name_);
         if(airports_s[idx].airport_IATA_!="\\N")
         {
             code_airport[airports_s[idx].airport_IATA_]=airports_s[idx];
@@ -139,6 +127,7 @@ void info_container::cleanRoute() {
     }
     for(unsigned idx=0;idx<routes_s.size();idx++)
     {
+        route_pair.push_back(std::pair<std::string,std::string>(code_airport.find(routes_s[idx].src_code_)->second.airport_name_,code_airport.find(routes_s[idx].dest_code_)->second.airport_name_));
         auto it=pair_route.find(routes_s[idx].src_code_+"-"+routes_s[idx].dest_code_);
         if(it==pair_route.end())
         {
