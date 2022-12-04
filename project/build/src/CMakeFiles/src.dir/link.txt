@@ -1,2 +1,0 @@
-/usr/bin/ar qc libsrc.a CMakeFiles/src.dir/graph_constructor.cpp.o CMakeFiles/src.dir/info_constructor.cpp.o
-/usr/bin/ranlib libsrc.a
