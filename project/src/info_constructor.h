@@ -61,7 +61,8 @@ public:
 	std::string TrimLeft(const std::string & str);
 	std::string Trim(const std::string & str);
 	double cal_dist(double longitude1, double latitude1, double longitude2, double latitude2);
-
+	std::vector<std::string> vertices;
+	std::vector<std::pair<std::string, std::string>> route_pair;
 private:
     std::string airports_;
 	std::string routes_;
