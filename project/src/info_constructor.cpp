@@ -1,15 +1,4 @@
-#include <cmath>
-#include <cstdlib>
-#include <sstream>
-#include <fenv.h>
-#include <signal.h>
-#include <vector>
-#include <stdlib.h>
-#include <unordered_map>
-
 #include "info_constructor.h"
-#include <algorithm>
-
 std::vector<double> info_container::calculate_dist()
 {
     std::vector<double> calculated_dists;
@@ -52,146 +41,153 @@ void info_container::clean()
 }
 
 void info_container::cleanAirport() {
+    std::vector<int> erase_or_not;
+    std::vector<airport_s> new_airports;
+    erase_or_not.resize(airports_s.size(),1);
     for(unsigned idx=0;idx<airports_s.size();idx++)
     {
         if(airports_s[idx].airport_name_==""||
             (airports_s[idx].airport_IATA_==""&&airports_s[idx].airport_ICAO_==""))
         {
-            airports_s.erase(airports_s.begin()+idx);
-            idx--;
+            erase_or_not[idx]=-1;
         }
         else if(airports_s[idx].airport_name_.find("Airbase")!=std::string::npos)
         {
-            airports_s.erase(airports_s.begin()+idx);
-            idx--;
+            erase_or_not[idx]=-1;
         }
         else if(airports_s[idx].airport_IATA_.length()!=5)
         {
             airports_s[idx].airport_IATA_="\\N";
             if(airports_s[idx].airport_ICAO_.length()!=6)
             {
-                airports_s.erase(airports_s.begin()+idx);
-                idx--;
+                erase_or_not[idx]=-1;
             }
         }
         else if(airports_s[idx].airport_IATA_=="\\N"&&airports_s[idx].airport_ICAO_=="\\N")
         {
-            airports_s.erase(airports_s.begin()+idx);
-            idx--;
+            erase_or_not[idx]=-1;
         }
         else if(airports_s[idx].longtitude_>180||airports_s[idx].longtitude_<-180)
         {
-            airports_s.erase(airports_s.begin()+idx);
-            idx--;
+            erase_or_not[idx]=-1;
         }
         else if(airports_s[idx].latitude_>90||airports_s[idx].latitude_<-90)
         {
-            airports_s.erase(airports_s.begin()+idx);
-            idx--;
+            erase_or_not[idx]=-1;
         }
         else if(airports_s[idx].altitude_>5500||airports_s[idx].altitude_<-500)
         {
-            airports_s.erase(airports_s.begin()+idx);
-            idx--;
+            erase_or_not[idx]=-1;
         }
     }
     for(unsigned idx=0;idx<airports_s.size();idx++)
     {
-        vertices.push_back(airports_s[idx].airport_name_);
-        if(airports_s[idx].airport_IATA_!="\\N")
+        if(erase_or_not[idx]==1)
         {
-            code_airport[airports_s[idx].airport_IATA_]=airports_s[idx];
+            vertices.push_back(airports_s[idx].airport_name_);
+            if(airports_s[idx].airport_IATA_!="\\N")
+            {
+                code_airport[airports_s[idx].airport_IATA_]=airports_s[idx];
+            }
+            else
+            {
+                code_airport[airports_s[idx].airport_ICAO_]=airports_s[idx];
+            }
+            name_airport[airports_s[idx].airport_name_]=airports_s[idx];
+            new_airports.push_back(airports_s[idx]);
         }
-        else
-        {
-            code_airport[airports_s[idx].airport_ICAO_]=airports_s[idx];
-        }
-        name_airport[airports_s[idx].airport_name_]=airports_s[idx];
     }
+    airports_s=new_airports;
 }
 
 void info_container::cleanRoute() {   
+    std::vector<int> erase_or_not;
+    std::vector<route_s> new_routes;
+    erase_or_not.resize(routes_s.size(),1);
     for(unsigned idx=0;idx<routes_s.size();idx++)
     {
         if(code_airport.find(routes_s[idx].src_code_)==code_airport.end()||
             code_airport.find(routes_s[idx].dest_code_)==code_airport.end())
         {
-            routes_s.erase(routes_s.begin()+idx);
-            idx--;
+            erase_or_not[idx]=-1;
         }
         else if(code_airline.find(routes_s[idx].airline_)==code_airline.end())
         {
-            routes_s.erase(routes_s.begin()+idx);
-            idx--;
+            erase_or_not[idx]=-1;
         }
     }
     for(unsigned idx=0;idx<routes_s.size();idx++)
     {
-        route_pair.push_back(std::pair<std::string,std::string>(code_airport.find(routes_s[idx].src_code_)->second.airport_name_,code_airport.find(routes_s[idx].dest_code_)->second.airport_name_));
-        auto it=pair_route.find(routes_s[idx].src_code_+"-"+routes_s[idx].dest_code_);
-        if(it==pair_route.end())
+        if(erase_or_not[idx]==1)
         {
-            pair_route[routes_s[idx].src_code_+"-"+routes_s[idx].dest_code_]=routes_s[idx].airline_;
-        }
-        else
-        {
-            it->second=it->second+","+routes_s[idx].airline_;
+            route_pair.push_back(std::pair<std::string,std::string>(code_airport.find(routes_s[idx].src_code_)->second.airport_name_,code_airport.find(routes_s[idx].dest_code_)->second.airport_name_));
+            auto it=pair_route.find(routes_s[idx].src_code_+"-"+routes_s[idx].dest_code_);
+            if(it==pair_route.end())
+            {
+                pair_route[routes_s[idx].src_code_+"-"+routes_s[idx].dest_code_]=routes_s[idx].airline_;
+            }
+            else
+            {
+                it->second=it->second+","+routes_s[idx].airline_;
+            }
+            new_routes.push_back(routes_s[idx]);
         }
     }
+    routes_s=new_routes;
 }
 
 void info_container::cleanAirline()
 {
+    std::vector<int> erase_or_not;
+    std::vector<airline_s> new_airlines;
+    erase_or_not.resize(airlines_s.size(),1);
     for(unsigned idx=0;idx<airlines_s.size();idx++)
     {
         if(airlines_s[idx].airline_name_==""||
             (airlines_s[idx].airline_IATA_==""&&airlines_s[idx].airline_ICAO_==""))
         {
-            airlines_s.erase(airlines_s.begin()+idx);
-            idx--;
+            erase_or_not[idx]=-1;
         }
         else if(airlines_s[idx].active_=="\"N\"")
         {
-            airlines_s.erase(airlines_s.begin()+idx);
-            idx--;
+            erase_or_not[idx]=-1;
         }
         else if(airlines_s[idx].airline_IATA_.length()!=4)
         {
             airlines_s[idx].airline_IATA_="\\N";
             if(airlines_s[idx].airline_ICAO_.length()!=5)
             {
-                airlines_s.erase(airlines_s.begin()+idx);
-                idx--;
+                erase_or_not[idx]=-1;
             }
         }
         else if(airlines_s[idx].airline_IATA_=="\\N"&&airlines_s[idx].airline_ICAO_=="\\N")
         {
-            airlines_s.erase(airlines_s.begin()+idx);
-            idx--;
+            erase_or_not[idx]=-1;
         }
     }
     for(unsigned idx=0;idx<airlines_s.size();idx++)
     {
-        if(airlines_s[idx].airline_IATA_!="\\N")
+        if(erase_or_not[idx]==1)
         {
+            if(airlines_s[idx].airline_IATA_!="\\N")
+            {
             code_airline[airlines_s[idx].airline_IATA_]=airlines_s[idx];
-        }
-        else
-        {
-            code_airline[airlines_s[idx].airline_ICAO_]=airlines_s[idx];
+            }
+            else
+            {
+                code_airline[airlines_s[idx].airline_ICAO_]=airlines_s[idx];
+            }
+            new_airlines.push_back(airlines_s[idx]);
         }
     }
+    airlines_s=new_airlines;
 }
 
 void info_container::read()
 {
-    std::vector<std::vector<std::string>> airport_v;
-	std::vector<std::vector<std::string>> route_v;
-	std::vector<std::vector<std::string>> airline_v;
-
-    airport_v = transferFile(airports_);
-	route_v = transferFile(routes_);
-    airline_v = transferFile(airlines_);
+    std::vector<std::vector<std::string>> airport_v= transferFile(airports_);
+	std::vector<std::vector<std::string>> route_v= transferFile(routes_);
+	std::vector<std::vector<std::string>> airline_v= transferFile(airlines_);
 
     for(unsigned long i = 0; i < airport_v.size();i++) {
         struct airport_s s;
@@ -240,10 +236,7 @@ void info_container::read()
         s.active_ = airline_v[i][7];
 
         airlines_s.push_back(s);
-        
     }
-
-    
 }
 
 std::string info_container::readfile(const std::string& filename){
