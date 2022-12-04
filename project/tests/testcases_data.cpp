@@ -29,14 +29,6 @@ TEST_CASE("try read correct airport and routes", "[weight=0][part=1]") {
     REQUIRE(routes[2].second=="\"Port Moresby Jacksons International Airport\"");
     REQUIRE(routes[3].first=="\"Goroka Airport\"");
     REQUIRE(routes[3].second=="\"Port Moresby Jacksons International Airport\"");
-    REQUIRE(routes[0].first=="Goroka Airport");
-    REQUIRE(routes[0].second="Madang Airport");
-    REQUIRE(routes[1].first="Madang Airport");
-    REQUIRE(routes[1].second="Mount Hagen Kagamuga Airport");
-    REQUIRE(routes[2].first="Nadzab Airport");
-    REQUIRE(routes[2].second="Port Moresby Jacksons International Airport");
-    REQUIRE(routes[3].first="Goroka Airport");
-    REQUIRE(routes[3].second="Port Moresby Jacksons International Airport");
 }
 
 
