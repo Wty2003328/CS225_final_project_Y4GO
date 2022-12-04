@@ -14,7 +14,7 @@ TEST_CASE("try read correct airport and routes", "[weight=0][part=1]") {
     std::vector<std::pair<std::string, std::string>> routes = information.generate_edges();
     REQUIRE(airports.size()==5);
     
-<<<<<<< HEAD
+
     REQUIRE(airports[0]=="\"Goroka Airport\"");
     REQUIRE(airports[1]=="\"Madang Airport\"");
     REQUIRE(airports[2]=="\"Mount Hagen Kagamuga Airport\"");
@@ -29,7 +29,6 @@ TEST_CASE("try read correct airport and routes", "[weight=0][part=1]") {
     REQUIRE(routes[2].second=="\"Port Moresby Jacksons International Airport\"");
     REQUIRE(routes[3].first=="\"Goroka Airport\"");
     REQUIRE(routes[3].second=="\"Port Moresby Jacksons International Airport\"");
-=======
     REQUIRE(routes[0].first=="Goroka Airport");
     REQUIRE(routes[0].second="Madang Airport");
     REQUIRE(routes[1].first="Madang Airport");
@@ -90,5 +89,4 @@ TEST_CASE("try read correct airport and routes, some airports need to be delete"
     REQUIRE(routes[0].second="Egilsstaðir Airport");
     REQUIRE(routes[1].first="Keflavik International Airport");
     REQUIRE(routes[1].second="Hornafjörður Airport");
->>>>>>> 871dde5fe632c53287e6b4acafa838412d157efa
 }
