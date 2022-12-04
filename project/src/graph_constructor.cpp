@@ -72,8 +72,8 @@ std::vector<Vertex> container::solvebyBFS(Vertex start, Vertex end)
 
 std::vector<Vertex> container::solvebyDij(Vertex start, Vertex end)
 {   
-    map<Vertex, double> d;
-    map<Vertex, Vertex> p;
+    unordered_map<Vertex, double> d;
+    unordered_map<Vertex, Vertex> p;
     vector<Vertex> nodes = inner.getVertices();
     for(unsigned i = 0; i < nodes.size(); i++) {
         d[nodes[i]] = INT_MAX;
