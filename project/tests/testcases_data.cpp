@@ -41,23 +41,23 @@ TEST_CASE("try read correct airport and routes, some routes need to be delete", 
     std::vector<std::pair<Vertex, Vertex>> routes = information.generate_edges();
     REQUIRE(airports.size()=8);
     REQUIRE(routes.size()=8);
-    REQUIRE(airports[0]="Akureyri Airport");
-    REQUIRE(airports[1]="Egilsstaðir Airport");
-    REQUIRE(airports[2]="Hornafjörður Airport");
-    REQUIRE(airports[3]="Húsavík Airport");
-    REQUIRE(airports[4]="Ísafjörður Airport");
-    REQUIRE(airports[5]="Keflavik Airport");
-    REQUIRE(airports[6]="Patreksfjörður Airport");
-    REQUIRE(airports[7]="Reykjavik Airport");
+    REQUIRE(airports[0]=="Akureyri Airport");
+    REQUIRE(airports[1]=="Egilsstaðir Airport");
+    REQUIRE(airports[2]=="Hornafjörður Airport");
+    REQUIRE(airports[3]=="Húsavík Airport");
+    REQUIRE(airports[4]=="Ísafjörður Airport");
+    REQUIRE(airports[5]=="Keflavik Airport");
+    REQUIRE(airports[6]=="Patreksfjörður Airport");
+    REQUIRE(airports[7]=="Reykjavik Airport");
 
     REQUIRE(routes[0].first=="Akureyri Airport");
-    REQUIRE(routes[0].second="Egilsstaðir Airport");
-    REQUIRE(routes[1].first="Keflavik International Airport");
-    REQUIRE(routes[1].second="Patreksfjörður Airport");
-    REQUIRE(routes[2].first="Hornafjörður Airport");
-    REQUIRE(routes[2].second="Ísafjörður Airport");
-    REQUIRE(routes[3].first="Keflavik International Airport");
-    REQUIRE(routes[3].second="Hornafjörður Airport");
+    REQUIRE(routes[0].second=="Egilsstaðir Airport");
+    REQUIRE(routes[1].first=="Keflavik International Airport");
+    REQUIRE(routes[1].second=="Patreksfjörður Airport");
+    REQUIRE(routes[2].first=="Hornafjörður Airport");
+    REQUIRE(routes[2].second=="Ísafjörður Airport");
+    REQUIRE(routes[3].first=="Keflavik International Airport");
+    REQUIRE(routes[3].second=="Hornafjörður Airport");
 }
 
 
@@ -70,15 +70,15 @@ TEST_CASE("try read correct airport and routes, some airports need to be delete"
     std::vector<std::pair<Vertex, Vertex>> routes = information.generate_edges();
     REQUIRE(airports.size()=7);
     REQUIRE(routes.size()=8);
-    REQUIRE(airports[0]="Akureyri Airport");
-    REQUIRE(airports[1]="Egilsstaðir Airport");
-    REQUIRE(airports[2]="Hornafjörður Airport");
-    REQUIRE(airports[3]="Ísafjörður Airport");
-    REQUIRE(airports[4]="Keflavik Airport");
-    REQUIRE(airports[5]="Patreksfjörður Airport");
+    REQUIRE(airports[0]=="Akureyri Airport");
+    REQUIRE(airports[1]=="Egilsstaðir Airport");
+    REQUIRE(airports[2]=="Hornafjörður Airport");
+    REQUIRE(airports[3]=="Ísafjörður Airport");
+    REQUIRE(airports[4]=="Keflavik Airport");
+    REQUIRE(airports[5]=="Patreksfjörður Airport");
 
     REQUIRE(routes[0].first=="Akureyri Airport");
-    REQUIRE(routes[0].second="Egilsstaðir Airport");
-    REQUIRE(routes[1].first="Keflavik International Airport");
-    REQUIRE(routes[1].second="Hornafjörður Airport");
+    REQUIRE(routes[0].second=="Egilsstaðir Airport");
+    REQUIRE(routes[1].first=="Keflavik International Airport");
+    REQUIRE(routes[1].second=="Hornafjörður Airport");
 }
