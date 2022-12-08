@@ -1,7 +1,5 @@
 # CS225_final_project_Y4GO
 
-## CS225 Final Project
-
 #### To run the project, please:
 1. put the project folder under course docker container.
 2. use terminal to "Mkdir build" in project folder.
