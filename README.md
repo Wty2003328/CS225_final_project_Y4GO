@@ -44,6 +44,6 @@ Files list:
 	* test_graph_large_BFS.jpg
 	* test_graph_small_BFS.jpg
 	* testcases_BFS.cpp
-	* testcases_data.cpp
+	* testcases_Data.cpp
 	* testcases_Dij.cpp
-	* testcases_delta.cpp
+	* testcases_Delta.cpp
