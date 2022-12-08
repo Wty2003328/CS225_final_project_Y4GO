@@ -1,8 +1,0 @@
-11,"Akureyri Airport","Akureyri","Iceland","AEY","BIAR",65.66000366210938,-18.07270050048828,6,0,"N","Atlantic/Reykjavik","airport","OurAirports"
-12,"Egilsstaðir Airport","Egilsstadir","Iceland","EGS","BIEG",65.2833023071289,-14.401399612426758,76,0,"N","Atlantic/Reykjavik","airport","OurAirports"
-13,"Hornafjörður Airport","Hofn","Iceland","HFN","BIHN",64.295601,-15.2272,24,0,"N","Atlantic/Reykjavik","airport","OurAirports"
-15,"Ísafjörður Airport","Isafjordur","Iceland","IFJ","BIIS",66.05809783935547,-23.135299682617188,8,0,"N","Atlantic/Reykjavik","airport","OurAirports"
-16,"Keflavik International Airport","Keflavik","Iceland","KEF","BIKF",63.985000610352,-22.605600357056,171,0,"N","Atlantic/Reykjavik","airport","OurAirports"
-17,"Patreksfjörður Airport","Patreksfjordur","Iceland","PFJ","BIPA",65.555801,-23.965,11,0,"N","Atlantic/Reykjavik","airport","OurAirports"
-1011,"Thornhill Air Base","Gwert","Zimbabwe","GWE","FVTL",-19.436399459838867,29.861900329589844,4680,2,"U","Africa/Harare","airport","OurAirports"
-767,"Nordholz Naval Airbase","Nordholz","Germany","FCN","ETMN",53.7677001953,8.658499717709999,74,1,"E","Europe/Berlin","airport","OurAirports"
