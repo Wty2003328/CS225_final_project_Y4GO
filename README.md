@@ -8,4 +8,4 @@ To run the project, please:
 5. compile the project by typing "make".
 6. to test the project, type "./test" after compiling.
 7. to run the project, type "./main" after compiling.
-	* to run the project, please type the name of airport as input.
+	* to run the project, please type the source of data and names of airport following the instruction in terminal.
