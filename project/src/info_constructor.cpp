@@ -50,6 +50,7 @@ std::vector<std::string> info_container::airlineinfo(const std::vector<std::stri
     std::vector<std::string> result;
     if (route[0] == "Destination not reachable!")
         return result;
+
     for (unsigned idx = 1; idx < route.size(); idx++)
     {
         std::string source_code = name_airport.find(route[idx - 1])->second.airport_IATA_;

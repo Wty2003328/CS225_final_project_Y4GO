@@ -8,13 +8,13 @@
 #include <queue>
 #include <unordered_map>
 #include "../lib/cs225/graph.h"
-class container
+class graph_container
 {
 public:
-	container(std::vector<std::string> &vertices, std::vector<std::pair<std::string, std::string>> &edges, std::vector<double> &distances);
-	container(std::vector<std::string> &vertices, std::vector<std::pair<std::string, std::string>> &edges);
+	graph_container(std::vector<std::string> &vertices, std::vector<std::pair<std::string, std::string>> &edges, std::vector<double> &distances);
+	graph_container(std::vector<std::string> &vertices, std::vector<std::pair<std::string, std::string>> &edges);
 
-	container();
+	graph_container();
 	std::vector<Vertex> solvebyBFS(Vertex start, Vertex end);
 	std::vector<Vertex> solvebyDij(Vertex start, Vertex end);
 

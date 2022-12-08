@@ -26,30 +26,6 @@ if(SITE_NAME MATCHES "ews.illinois.edu$")
     set(EWS TRUE)
 endif()
 
-# Handle unsupported container warnings.
-# Default to remind students to use our container, unless they are using our targeted container.
-set(REMIND_CONTAINER TRUE)
-if(DEFINED ENV{CS225_CONTAINER})
-    if($ENV{CS225_CONTAINER})
-        # This is the container we are targetting, so don't print the reminder.
-        unset(REMIND_CONTAINER)
-    elseif($ENV{CS225_CONTAINER} MATCHES ".+-arm")
-        message(STATUS "${ColorYellow}Looks like you are using an ARM/M1 container.${ColorReset}")
-    else()
-        message(STATUS "${ColorYellow}Looks like you are using an unrecognized container.${ColorReset}")
-    endif()
-elseif(DEFINED EWS)
-    message(STATUS "${ColorYellow}Looks like you are using EWS.${ColorReset}")
-    message(STATUS "${ColorRed}EWS is outdated and unsupported. Use at your own risk.${ColorReset}")
-else()
-    # Warn students who are not using our container at all.
-    message(STATUS "${ColorYellow}Looks like you are not using the provided container.${ColorReset}")
-endif()
-
-# Remind students to use our container.
-if(DEFINED REMIND_CONTAINER)
-    message(WARNING "${ColorYellow}Make sure you test on the CS225 container before the deadline.${ColorReset}")
-endif()
 
 # Disable in-source builds (running "cmake ." in the project directory)
 # This is bad practice as it pollutes the project directory.

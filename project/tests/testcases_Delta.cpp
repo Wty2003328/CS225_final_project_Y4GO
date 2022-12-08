@@ -7,7 +7,7 @@
 
 using namespace std;
 
-vector<Vertex> large_graph_path_unweighted(Vertex start, Vertex end)
+vector<Vertex> delta_large_graph_path_unweighted(Vertex start, Vertex end)
 {
     vector<Vertex> airports{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
     vector<pair<Vertex, Vertex>> edges{
@@ -48,7 +48,7 @@ vector<Vertex> large_graph_path_unweighted(Vertex start, Vertex end)
     return path;
 }
 //**need modification on weight
-vector<Vertex> large_graph_path_weighted(Vertex start, Vertex end)
+vector<Vertex> delta_large_graph_path_weighted(Vertex start, Vertex end)
 {
     vector<Vertex> airports{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
     vector<pair<Vertex, Vertex>> edges{
@@ -89,7 +89,7 @@ vector<Vertex> large_graph_path_weighted(Vertex start, Vertex end)
     return path;
 }
 
-TEST_CASE("Dij works on small graph with all out directing unweighted graph", "[weight=0][part=3]")
+TEST_CASE("Delta-SSSP works on small graph with all out directing unweighted graph", "[weight=0][part=4]")
 {
 
     vector<Vertex> airports{"a", "b", "c", "d", "e", "f", "g"};
@@ -109,7 +109,7 @@ TEST_CASE("Dij works on small graph with all out directing unweighted graph", "[
     REQUIRE(path[2] == "g");
 }
 
-TEST_CASE("Dij works on small graph with undirected unweighted graph", "[weight=0][part=3]")
+TEST_CASE("Delta-SSSP works on small graph with undirected unweighted graph", "[weight=0][part=4]")
 {
     /*
        same graph structure of above graph, but undirected edges
@@ -137,25 +137,25 @@ TEST_CASE("Dij works on small graph with undirected unweighted graph", "[weight=
     REQUIRE(path[2] == "g");
 }
 
-TEST_CASE("Dij works on larger unweighted graph for unreachable vertex", "[weight=0][part=3]")
+TEST_CASE("Delta-SSSP works on larger unweighted graph for unreachable vertex", "[weight=0][part=4]")
 {
-    vector<Vertex> path = large_graph_path_weighted("a", "h");
+    vector<Vertex> path = delta_large_graph_path_weighted("a", "h");
     REQUIRE(path[0] == "Destination not reachable!");
-    vector<Vertex> path1 = large_graph_path_weighted("a", "q");
+    vector<Vertex> path1 = delta_large_graph_path_weighted("a", "q");
     REQUIRE(path1[0] == "Destination not reachable!");
 }
 
-TEST_CASE("Dij works on larger unweighted graph for reachable vertex", "[weight=0][part=3]")
+TEST_CASE("Delta-SSSP works on larger unweighted graph for reachable vertex", "[weight=0][part=4]")
 {
 
-    vector<Vertex> path = large_graph_path_weighted("a", "d");
+    vector<Vertex> path = delta_large_graph_path_weighted("a", "d");
     REQUIRE(path.size() == 5);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
     REQUIRE(path[2] == "y");
     REQUIRE(path[3] == "o");
     REQUIRE(path[4] == "d");
-    vector<Vertex> path1 = large_graph_path_weighted("a", "w");
+    vector<Vertex> path1 = delta_large_graph_path_weighted("a", "w");
     REQUIRE(path1.size() == 3);
     REQUIRE(path1[0] == "a");
     REQUIRE(path1[1] == "g");
@@ -163,7 +163,7 @@ TEST_CASE("Dij works on larger unweighted graph for reachable vertex", "[weight=
 }
 
 // test on weighted graph **need modification
-TEST_CASE("Dij works on small graph with all out directing weighted graph", "[weight=0][part=3]")
+TEST_CASE("Delta-SSSP works on small graph with all out directing weighted graph", "[weight=0][part=4]")
 {
 
     vector<Vertex> airports{"a", "b", "c", "d", "e", "f", "g"};
@@ -183,7 +183,7 @@ TEST_CASE("Dij works on small graph with all out directing weighted graph", "[we
     REQUIRE(path[2] == "g");
 }
 
-TEST_CASE("Dij works  on small graph with undirected weighted graph", "[weight=0][part=3]")
+TEST_CASE("Delta-SSSP works  on small graph with undirected weighted graph", "[weight=0][part=4]")
 {
     /*
        same graph structure of above graph, but undirected edges
@@ -211,54 +211,54 @@ TEST_CASE("Dij works  on small graph with undirected weighted graph", "[weight=0
     REQUIRE(path[2] == "g");
 }
 
-TEST_CASE("Dij works on larger weighted graph for unreachable vertex", "[weight=0][part=3]")
+TEST_CASE("Delta-SSSP works on larger weighted graph for unreachable vertex", "[weight=0][part=4]")
 {
 
-    vector<Vertex> path = large_graph_path_weighted("a", "h");
+    vector<Vertex> path = delta_large_graph_path_weighted("a", "h");
     REQUIRE(path[0] == "Destination not reachable!");
-    vector<Vertex> path1 = large_graph_path_weighted("a", "q");
+    vector<Vertex> path1 = delta_large_graph_path_weighted("a", "q");
     REQUIRE(path1[0] == "Destination not reachable!");
 }
 
-TEST_CASE("Dij works on larger weighted graph for reachable vertex", "[weight=0][part=3]")
+TEST_CASE("Delta-SSSP works on larger weighted graph for reachable vertex", "[weight=0][part=4]")
 {
-    vector<Vertex> path = large_graph_path_weighted("a", "d");
+    vector<Vertex> path = delta_large_graph_path_weighted("a", "d");
     REQUIRE(path.size() == 5);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
     REQUIRE(path[2] == "y");
     REQUIRE(path[3] == "o");
     REQUIRE(path[4] == "d");
-    vector<Vertex> path1 = large_graph_path_weighted("a", "w");
+    vector<Vertex> path1 = delta_large_graph_path_weighted("a", "w");
     REQUIRE(path1.size() == 3);
     REQUIRE(path1[0] == "a");
     REQUIRE(path1[1] == "g");
     REQUIRE(path1[2] == "w");
 }
 
-TEST_CASE("More Dij works on larger weighted graph for reachable vertex", "[weight=0][part=3]")
+TEST_CASE("More Delta-SSSP works on larger weighted graph for reachable vertex", "[weight=0][part=4]")
 {
-    vector<Vertex> path = large_graph_path_weighted("a", "y");
+    vector<Vertex> path = delta_large_graph_path_weighted("a", "y");
     REQUIRE(path.size() == 3);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
     REQUIRE(path[2] == "y");
-    vector<Vertex> path1 = large_graph_path_weighted("a", "l");
+    vector<Vertex> path1 = delta_large_graph_path_weighted("a", "l");
     REQUIRE(path1.size() == 3);
     REQUIRE(path1[0] == "a");
     REQUIRE(path1[1] == "c");
     REQUIRE(path1[2] == "l");
 }
 
-TEST_CASE("Further Dij works on larger weighted graph for reachable vertex", "[weight=0][part=3]")
+TEST_CASE("Further Delta-SSSP works on larger weighted graph for reachable vertex", "[weight=0][part=4]")
 {
-    vector<Vertex> path = large_graph_path_weighted("d", "e");
+    vector<Vertex> path = delta_large_graph_path_weighted("d", "e");
     REQUIRE(path.size() == 4);
     REQUIRE(path[0] == "d");
     REQUIRE(path[1] == "a");
     REQUIRE(path[2] == "j");
     REQUIRE(path[3] == "e");
-    vector<Vertex> path1 = large_graph_path_weighted("d", "f");
+    vector<Vertex> path1 = delta_large_graph_path_weighted("d", "f");
     REQUIRE(path1.size() == 4);
     REQUIRE(path1[0] == "d");
     REQUIRE(path1[1] == "a");

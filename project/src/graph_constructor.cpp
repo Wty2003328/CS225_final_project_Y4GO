@@ -6,7 +6,7 @@
     output: nothing
     construct graph in private member using input vertices, edges and distances
 */
-container::container(std::vector<Vertex> &vertices, std::vector<std::pair<Vertex, Vertex>> &edges, std::vector<double> &distances) : inner(Graph(true, true))
+graph_container::graph_container(std::vector<Vertex> &vertices, std::vector<std::pair<Vertex, Vertex>> &edges, std::vector<double> &distances) : inner(Graph(true, true))
 {
     for (auto it = vertices.begin(); it != vertices.end(); ++it)
     {
@@ -26,7 +26,7 @@ container::container(std::vector<Vertex> &vertices, std::vector<std::pair<Vertex
     output: nothing
     construct graph in private member using input vertices, edges, distances are all set as 1
 */
-container::container(std::vector<Vertex> &vertices, std::vector<std::pair<Vertex, Vertex>> &edges) : inner(Graph(false, true))
+graph_container::graph_container(std::vector<Vertex> &vertices, std::vector<std::pair<Vertex, Vertex>> &edges) : inner(Graph(false, true))
 {
     for (auto it = vertices.begin(); it != vertices.end(); ++it)
     {
@@ -45,7 +45,7 @@ container::container(std::vector<Vertex> &vertices, std::vector<std::pair<Vertex
     output: a vector of vertices that passed by when travelling from start to end
     using an undered map as visited for checking and storing predecessor
 */
-std::vector<Vertex> container::solvebyBFS(Vertex start, Vertex end)
+std::vector<Vertex> graph_container::solvebyBFS(Vertex start, Vertex end)
 {
     std::unordered_map<Vertex, Vertex> visited;
     std::vector<Vertex> solution;
@@ -93,7 +93,7 @@ std::vector<Vertex> container::solvebyBFS(Vertex start, Vertex end)
     input: two vertices, a start and an end
     output: a vector of vertices that passed by when travelling from start to end
 */
-std::vector<Vertex> container::solvebyDij(Vertex start, Vertex end)
+std::vector<Vertex> graph_container::solvebyDij(Vertex start, Vertex end)
 {
     std::unordered_map<Vertex, double> d;
     std::unordered_map<Vertex, Vertex> p;

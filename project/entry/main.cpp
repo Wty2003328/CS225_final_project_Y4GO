@@ -26,7 +26,7 @@ int main()
     vector<Vertex> airports = information.generate_vertices();
     vector<pair<Vertex, Vertex>> routes = information.generate_edges();
     vector<double> dist = information.calculate_dist();
-    container calculator(airports, routes, dist);
+    graph_container calculator(airports, routes, dist);
     string start, end;
     // get departure and arrival airports
     bool find = false;
