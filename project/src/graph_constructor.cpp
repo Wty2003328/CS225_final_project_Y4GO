@@ -122,6 +122,5 @@ std::vector<Vertex> container::solvebyDij(Vertex start, Vertex end)
     for(unsigned i = 0; i < output.size();i++) {
         output2.push_back(output[output.size() - 1 - i]);
     }
-
     return output2;
 }

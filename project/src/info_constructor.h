@@ -66,8 +66,10 @@ public:
 	std::string TrimLeft(const std::string & str);
 	std::string Trim(const std::string & str);
 	double cal_dist(double longitude1, double latitude1, double longitude2, double latitude2);
+	std::vector<std::string> airlineinfo(const std::vector<std::string> &route);
 	std::vector<std::string> vertices;
 	std::vector<std::pair<std::string, std::string>> route_pair;
+
 private:
     std::string airports_;
 	std::string routes_;
@@ -84,7 +86,7 @@ private:
 
 	std::unordered_map<std::string, airport_s> code_airport;
     std::unordered_map<std::string, airport_s> name_airport;
-    std::unordered_map<std::string,std::string> pair_route;
+    std::unordered_map<std::string, std::string> pair_route;
 	std::unordered_map<std::string, airline_s> code_airline;
 	
 };

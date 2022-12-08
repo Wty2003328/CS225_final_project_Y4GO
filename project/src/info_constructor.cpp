@@ -22,6 +22,37 @@ std::vector<std::pair<std::string,std::string>> info_container::generate_edges()
     return route_pair;
 }
 
+std::vector<std::string> info_container::airlineinfo(const std::vector<std::string> &route)
+{
+    std::vector<std::string> result;
+    if(route[0]=="Destination not reachable!")
+    return result;
+    for(unsigned idx=1;idx<route.size();idx++)
+    {
+        std::string source_code=name_airport.find(route[idx-1])->second.airport_IATA_;
+        if(source_code=="")
+        {
+            source_code=name_airport.find(route[idx-1])->second.airport_ICAO_;
+        }
+        std::string dest_code=name_airport.find(route[idx])->second.airport_IATA_;
+        if(dest_code=="")
+        {
+            dest_code=name_airport.find(route[idx])->second.airport_ICAO_;
+        }
+        std::string airline_codes=pair_route.find(source_code+"-"+dest_code)->second;
+        std::vector<std::string> airline_codes_vector;
+        divide(airline_codes,',',airline_codes_vector); 
+        std::string airline_names ="";
+        for(auto it=airline_codes_vector.begin();it!=airline_codes_vector.end();++it)
+        {
+            airline_names+=code_airline.find(*it)->second.airline_name_+"("+code_airline.find(*it)->second.airline_country_+"),";
+        }
+        airline_names[airline_names.length()-1]=' ';
+        result.push_back(airline_names);
+    }
+    return result;
+}
+
 info_container::info_container(std::string airports, std::string routes, std::string airlines)
                 :code_airport(std::unordered_map<std::string, airport_s>()),name_airport(std::unordered_map<std::string, airport_s>()),
                 pair_route(std::unordered_map<std::string,std::string>()),
@@ -171,10 +202,11 @@ void info_container::cleanAirline()
         {
             if(airlines_s[idx].airline_IATA_!="\\N")
             {
-            code_airline[airlines_s[idx].airline_IATA_]=airlines_s[idx];
+                code_airline[airlines_s[idx].airline_IATA_]=airlines_s[idx]; 
             }
             else
             {
+                airlines_s[idx].airline_IATA_="";
                 code_airline[airlines_s[idx].airline_ICAO_]=airlines_s[idx];
             }
             new_airlines.push_back(airlines_s[idx]);
@@ -232,7 +264,7 @@ void info_container::read()
         s.airline_name_ = airline_v[i][1];
         s.airline_IATA_ = airline_v[i][3];     //2
         s.airline_ICAO_ = airline_v[i][4];     //3
-        s.airline_country_ = airline_v[i][5];
+        s.airline_country_ = airline_v[i][6];
         s.active_ = airline_v[i][7];
 
         airlines_s.push_back(s);
@@ -241,7 +273,6 @@ void info_container::read()
 
 std::string info_container::readfile(const std::string& filename){
 	std::ifstream in(filename);
-
 	std::stringstream strStream;
 	if (in.is_open()) {
 		strStream << in.rdbuf();
@@ -252,10 +283,8 @@ std::string info_container::readfile(const std::string& filename){
 std::vector<std::vector<std::string>> info_container::transferFile(const std::string & filename){
     std::string newString = readfile(filename);
     std::vector<std::string> rows;
-    
     int num_row = divide(newString, '\n', rows);
     std::vector<std::vector<std::string>> newV2D;
-
     for(int i = 0;i < num_row;i ++) {
         std::vector<std::string> cols;
         newV2D.push_back({});
