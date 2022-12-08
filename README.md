@@ -34,3 +34,13 @@ Files list:
 	* airlines.txt
 	* airports.txt
 	* routes.txt
+* Test codes and data used for test are placed in `project/tests` folder, testcases_data.cpp tests for reading functionality of info_container class, testcases_BFS, testcases_Dij and testcases_delta tests for graph calculating functionality of graph_container class. The graph used for testing is also included.Please see detailed test description in those files. Files list:
+	* information_test_airlines.txt
+	* information_test_airports.txt
+	* information_test_routes.txt
+	* test_graph_large_BFS.jpg
+	* test_graph_small_BFS.jpg
+	* testcases_BFS.cpp
+	* testcases_data.cpp
+	* testcases_Dij.cpp
+	* testcases_delta.cpp
