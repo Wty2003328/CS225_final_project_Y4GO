@@ -13,5 +13,4 @@ To run the project, please:
 
 
 Project code linkage and location description:
-
-  The code derived from course materials are placed in project/lib/cs225 folder, edge and graph class and their utility functions are placed there. The code of information container and graph calculator are placed in project/src folder. Most of implementation of this project is placed in src folder. The main function are placed in project/entry folder. 
+	The code derived from course materials are placed in project/lib/cs225 folder, edge and graph class and their utility functions are placed there. The code of information container and graph calculator are placed in project/src folder. Most of implementation of this project is placed in src folder. The main function are placed in project/entry folder. 
