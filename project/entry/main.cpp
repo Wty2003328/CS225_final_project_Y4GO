@@ -12,43 +12,65 @@ int main()
     vector<double> dist = information.calculate_dist();
     container calculator(airports, routes, dist);
     string start,end;
-    cout << "Your place of departure:" << endl;
-    getline(cin,start);
+    
     bool find=false;
-    for(auto it=airports.begin();it!=airports.end();++it)
+    while(find==false)
     {
-        if(*it==start)
-        find=true;
+        cout << "Your place of departure:" << endl;
+        getline(cin,start);
+        start="\""+start+"\"";
+        for(auto it=airports.begin();it!=airports.end();++it)
+        {
+            if(*it==start)
+            find=true;
+        }
+        if(find==false)
+        {
+            cout << "Invalid Input!" << endl;
+        }
     }
-    if(find==false)
-    {
-        cout << "Invalid Input!" << endl;
-        return 0;
-    }
-    cout << "Your destination:" << endl;
-    getline(cin,end);
     find=false;
-    for(auto it=airports.begin();it!=airports.end();++it)
+    while(find==false)
     {
-        if(*it==end)
-        find=true;
+        cout << "Your destination:" << endl;
+        getline(cin,end);
+        end="\""+end+"\"";
+        for(auto it=airports.begin();it!=airports.end();++it)
+        {
+            if(*it==start)
+            find=true;
+        }
+        if(find==false)
+        {
+            cout << "Invalid Input!" << endl;
+        }
     }
-    if(find==false)
-    {
-        cout << "Invalid Input!" << endl;
-        return 0;
-    }
+    
+    
+
     vector<Vertex> min_transfer = calculator.solvebyBFS(start, end);
     vector<Vertex> min_dist = calculator.solvebyDij(start, end);
+    vector<string> min_transfer_airlineinfo=information.airlineinfo(min_transfer);
+    vector<string> min_dist_airlineinfo=information.airlineinfo(min_dist);
     cout << "\n"<<"minimum transfer route:" << endl;
     for (auto it = min_transfer.begin(); it != min_transfer.end(); ++it)
     {
         cout << *it <<endl;
     }
+     cout<<"Airlines available for corresponding route section: "<<endl;
+    for (unsigned idx=0;idx<min_transfer_airlineinfo.size();idx++)
+    {
+       cout<<"Section"<<idx+1<<": "<<min_transfer_airlineinfo[idx]<<endl;
+    }
     cout <<"\n"<<"minimum distance route:" << endl;
     for (auto it = min_dist.begin(); it != min_dist.end(); ++it)
     {
         cout << *it <<endl;
+    }
+    cout<<"Airlines available for corresponding route section: "<<endl;
+    for (unsigned idx=0;idx<min_dist_airlineinfo.size();idx++)
+    {
+        cout<<"Section"<<idx+1<<": "<<min_dist_airlineinfo[idx]<<endl;
     }
     return 0;
 }
