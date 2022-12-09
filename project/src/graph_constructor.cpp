@@ -157,112 +157,114 @@ std::vector<Vertex> graph_container::solvebyDij(Vertex start, Vertex end)
 }
 
 
+
 std::vector<Vertex> graph_container::solvebyDeltaStepping(Vertex start, Vertex end) {
     // map<Vertex, double> dist;
     // map<Vertex, Vertex> prev;
-    // vector<Vertex> nodes = inner.getVertices();
+    std::vector<Vertex> nodes = inner.getVertices();
 
     // vector<vector<Vertex>> bucket;
-    // double delta;
+    // double delta = 0.0;
 
-    // for(unsigned i = 0; i < nodes.size(); i++) {
-    //     dist[nodes[i]] = INT_MAX;
-    //     prev[nodes[i]] = "0";
-    // }
+    for(unsigned i = 0; i < nodes.size(); i++) {
+        dist[nodes[i]] = INT_MAX;
+        prev[nodes[i]] = "0";
+    }
 
-    // dist[start] = 0;
-    // bucket[0].push_back(start);
+    dist[start] = 0;
+    bucket[0].push_back(start);
 
-    // extend(start, dist[start]);
+    //extend(start, dist[start], prev[start]);
 
-    // while(bucket.size() != 0) {
-    //     vector<Vertex> temp;
-    //     for(unsigned i = 0;i < bucket.size();i ++) {
-    //         if(bucket[i].size() != 0) {
-    //             curr = i;
-    //             break;
-    //         }
-    //     }
-    //     while(bucket[curr].size() != 0) {
-    //         findRoutes(bucket[curr], "shorter than delta");
-    //         for(unsigned i = 0;i < bucket[curr].size();i ++) {
-    //             for(unsigned j = 0;j < bucket[curr].size();j ++) {
-    //                 if(bucket[curr][i] == temp[j]) {
-    //                     break;
-    //                 }
-    //             }
-    //             temp.push_back(bucket[curr][i]);
-    //         }
-    //         bucket[curr].clear();
-    //     }
-    //     findRoutes(bucket[curr], "longer than delta");
-    // }
+    while(bucket.size() != 0) {
+        std::vector<Vertex> temp;
+        unsigned curr = 0;
 
-    // //copy Dijk
-    // Vertex find = end;
-    // vector<Vertex> output;
-    // output_reverse.push_back(end);
-    // int i = 0;
-    // while(prev[find] != start) {
-    //     i++;
-    //     output_reverse.push_back(prev[find]);
-    //     find = p[find];
-    //     if(i > 1000) {
-    //         vector<Vertex> output_fail;
-    //         output1.push_back("Destination not reachable!");
-    //         return output_fail;
-    //     }
-    // }
-    // output_reverse.push_back(start);
+        for(unsigned i = 0;i < bucket.size();i ++) {
+            if(bucket[i].size() != 0) {
+                curr = i;
+                break;
+            }
+        }
+        while(bucket[curr].size() != 0) {
+            findRoutes(bucket[curr], "shorter than delta");
+            for(unsigned i = 0;i < bucket[curr].size();i ++) {
+                for(unsigned j = 0;j < bucket[curr].size();j ++) {
+                    if(bucket[curr][i] == temp[j]) {
+                        break;
+                    }
+                }
+                temp.push_back(bucket[curr][i]);
+            }
+            bucket[curr].clear();
+        }
+        findRoutes(bucket[curr], "longer than delta");
+    }
 
-    vector<Vertex> output_success;
-    // for(unsigned i = 0; i < output_reverse.size();i++) {
-    //     output2.push_back(output_reverse[output_reverse.size() - 1 - i]);
-    // }
+    //copy Dijk
+    Vertex find = end;
+    std::vector<Vertex> output_reverse;
+    output_reverse.push_back(end);
+    int i = 0;
+    while(prev[find] != start) {
+        i++;
+        output_reverse.push_back(prev[find]);
+        find = prev[find];
+        if(i > 1000) {
+            std::vector<Vertex> output_fail;
+            output_fail.push_back("Destination not reachable!");
+            return output_fail;
+        }
+    }
+    output_reverse.push_back(start);
+
+    std::vector<Vertex> output_success;
+    for(unsigned i = 0; i < output_reverse.size();i++) {
+        output_success.push_back(output_reverse[output_reverse.size() - 1 - i]);
+    }
 
     return output_success;
     //end copy
 }
 
-// void graph_container::findRoutes(vector<Vertex> newBucket, string kind) {
-//     std::vector<unordered_map<Vertex, double>> all_length;
-//     if(kind == "shorter than delta") {
-//         for(unsigned i = 0;i < newBucket.size();i ++) {
-//             vector<Vertex> newAdj = inner.getAdjacent(u);
-//             for(unsigned j = 0;j < newAdj.size();j ++) {
-//                 double adj_length = inner.getEdge(newBucket[i], newAdj[j]).getWeight();
-//                 if(adj_length <= delta) {
-//                     extend(newAdj[j], dist[newBucket[i]] + adj_length, newBucket[i]);
-//                 }
-//             }  
-//         }
-//     }
+void graph_container::findRoutes(vector<Vertex> newBucket, string kind) {
+    std::vector<unordered_map<Vertex, double>> all_length;
+    if(kind == "shorter than delta") {
+        for(unsigned i = 0;i < newBucket.size();i ++) {
+            vector<Vertex> newAdj = inner.getAdjacent(newBucket[i]);
+            for(unsigned j = 0;j < newAdj.size();j ++) {
+                double adj_length = inner.getEdge(newBucket[i], newAdj[j]).getWeight();
+                if(adj_length <= delta) {
+                    extend(newAdj[j], dist[newBucket[i]] + adj_length, newBucket[i]);
+                }
+            }  
+        }
+    }
 
-//     if(kind == "longer than delta") {
-//         for(unsigned i = 0;i < newBucket.size();i ++) {
-//             vector<Vertex> newAdj = inner.getAdjacent(u);
-//             for(unsigned j = 0;j < newAdj.size();j ++) {
-//                 double adj_length = inner.getEdge(newBucket[i], newAdj[j]).getWeight();
-//                 if(adj_length > delta) {
-//                     extend(newAdj[j], dist[newBucket[i]] + adj_length);
-//                 }
-//             }  
-//         }
-//     }
-//     return all_length;
-// }
+    if(kind == "longer than delta") {
+        for(unsigned i = 0;i < newBucket.size();i ++) {
+            vector<Vertex> newAdj = inner.getAdjacent(newBucket[i]);
+            for(unsigned j = 0;j < newAdj.size();j ++) {
+                double adj_length = inner.getEdge(newBucket[i], newAdj[j]).getWeight();
+                if(adj_length > delta) {
+                    extend(newAdj[j], dist[newBucket[i]] + adj_length, newBucket[i]);
+                }
+            }  
+        }
+    }
+}
 
-// std::vector<Vertex> graph_container::extend(Vertex nowV, double changed_length, Vertex p) {
-//     if(changed_length < dist[nowV]) {
-//         for(auto it = bucket[dist[nowV]/delta].begin();it != bucket[d[nowV]/delta].end();it ++) {
-//             if(dist[nowV] != INT_MAX && it == nowV) {
-//                 bucket[dist[nowV]/delta].erase(it);
-//                 it --;
-//             }
-//         }
-//         bucket[changed_length/delta].push_back(nowV);
+void graph_container::extend(Vertex nowV, double changed_length, Vertex p) {
+    if(changed_length < dist[nowV]) {
+        for(auto it = bucket[dist[nowV]/delta].begin();it != bucket[dist[nowV]/delta].end();it ++) {
+            if(dist[nowV] != INT_MAX && (*it) == nowV) {
+                bucket[dist[nowV]/delta].erase(it);
+                it --;
+            }
+        }
+        bucket[changed_length/delta].push_back(nowV);
 
-//         dist[nowV] = changed_length;
-//         prev[nowV] = p;
-//     }
-// }
+        dist[nowV] = changed_length;
+        prev[nowV] = p;
+    }
+}

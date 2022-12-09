@@ -15,13 +15,20 @@ public:
 	graph_container(std::vector<std::string> &vertices, std::vector<std::pair<std::string, std::string>> &edges);
 
 	graph_container();
+
 	std::vector<Vertex> solvebyBFS(Vertex start, Vertex end);
 	std::vector<Vertex> solvebyDij(Vertex start, Vertex end);
 	std::vector<Vertex> solvebyDeltaStepping(Vertex start, Vertex end);
+	
 private:
 	Graph inner;
 	std::vector<Vertex> airports;
+
+	std::unordered_map<Vertex, double> dist;
+	std::unordered_map<Vertex, Vertex> prev;
+	std::vector<vector<Vertex>> bucket;
+	double delta = 0.0;
+
 	void findRoutes(vector<Vertex> newBucket, string kind);
-	std::vector<Vertex> extend(Vertex nowV, double changed_length, Vertex p);
-	
+	void extend(Vertex nowV, double changed_length, Vertex p);	
 };
