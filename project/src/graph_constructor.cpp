@@ -152,7 +152,7 @@ std::vector<Vertex> graph_container::solvebyDij(Vertex start, Vertex end)
 }
 
 
-std::vector<Vertex> container::solvebyDeltaStepping(Vertex start, Vertex end) {
+std::vector<Vertex> graph_container::solvebyDeltaStepping(Vertex start, Vertex end) {
     map<Vertex, double> dist;
     map<Vertex, Vertex> prev;
     vector<Vertex> nodes = inner.getVertices();
