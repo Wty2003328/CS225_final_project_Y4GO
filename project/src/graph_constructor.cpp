@@ -219,7 +219,7 @@ std::vector<Vertex> graph_container::solvebyDeltaStepping(Vertex start, Vertex e
     //end copy
 }
 
-void container::findRoutes(vector<Vertex> newBucket, string kind) {
+void graph_container::findRoutes(vector<Vertex> newBucket, string kind) {
     std::vector<unordered_map<Vertex, double>> all_length;
     if(kind == "shorter than delta") {
         for(unsigned i = 0;i < newBucket.size();i ++) {
@@ -247,7 +247,7 @@ void container::findRoutes(vector<Vertex> newBucket, string kind) {
     return all_length;
 }
 
-std::vector<Vertex> container::extend(Vertex nowV, double changed_length, Vertex p) {
+std::vector<Vertex> graph_container::extend(Vertex nowV, double changed_length, Vertex p) {
     if(changed_length < dist[nowV]) {
         for(auto it = bucket[dist[nowV]/delta].begin();it != bucket[d[nowV]/delta].end();it ++) {
             if(dist[nowV] != INT_MAX && it == nowV) {
