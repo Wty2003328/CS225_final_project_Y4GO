@@ -62,8 +62,8 @@ int main()
         }
     }
     // print out output calculated
-    vector<Vertex> min_transfer = calculator.solvebyBFS(start, end);
-    vector<Vertex> min_dist = calculator.solvebyDij(start, end);
+    vector<string> min_transfer = calculator.solvebyBFS(start, end);
+    vector<string> min_dist = calculator.solvebyDij(start, end);
     vector<string> min_transfer_airlineinfo = information.airlineinfo(min_transfer);
     vector<string> min_dist_airlineinfo = information.airlineinfo(min_dist);
     cout << "\n"
