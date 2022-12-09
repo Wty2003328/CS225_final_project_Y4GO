@@ -29,7 +29,7 @@ Files list:
 *  The main function are placed in `project/entry` folder. 
 Files list:
 	* main.cpp
-*  Data are placed in `project/entry` folder,they are files downloaded from [OpenFlights](https://openflights.org/data.html).
+*  Data are placed in `project/data` folder,they are files downloaded from [OpenFlights](https://openflights.org/data.html).
 Files list:
 	* airlines.txt
 	* airports.txt
