@@ -17,11 +17,11 @@ public:
 	graph_container();
 	std::vector<Vertex> solvebyBFS(Vertex start, Vertex end);
 	std::vector<Vertex> solvebyDij(Vertex start, Vertex end);
-
+	std::vector<Vertex> solvebyDeltaStepping(Vertex start, Vertex end);
 private:
 	Graph inner;
 	std::vector<Vertex> airports;
 	void findRoutes(vector<Vertex> newBucket, string kind);
 	std::vector<Vertex> extend(Vertex nowV, double changed_length, Vertex p);
-	std::vector<Vertex> solvebyDeltaStepping(Vertex start, Vertex end);
+	
 };
