@@ -47,8 +47,8 @@ else()
     set(CMAKE_LINKER "/software/llvm-6.0.1/bin/clang++")
 
     # Add other required flags for EWS.
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++ -lc++abi")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -D __gnu_parallel -fopenmp")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++ -lc++abi -fopenmp")
 endif()
 
 # Specify C++ Standard.
