@@ -106,12 +106,11 @@ std::vector<Vertex> graph_container::solvebyDij(Vertex start, Vertex end)
         visited[nodes[i]] = false;
     }
     d[start] = 0;
-    std::priority_queue<std::pair<double, Vertex>, vector<std::pair<double, Vertex>>, std::greater<std::pair<double, Vertex>>> queue_;
+   std::priority_queue<std::pair<double, Vertex>, vector<std::pair<double, Vertex>>, std::greater<std::pair<double, Vertex>>> queue_;
     queue_.push(make_pair(0, start));
     while (queue_.empty() == false)
-    {
-        Vertex u = queue_.top().second;
-        queue_.pop();
+    {   pair top = queue_.top();
+        Vertex u = top.second;
         if(visited[u] == false) {
             visited[u] = true;
         std::vector<Vertex> temp = inner.getAdjacent(u);
@@ -124,10 +123,12 @@ std::vector<Vertex> graph_container::solvebyDij(Vertex start, Vertex end)
             {
                 d[v] = d[u] + length;
                 p[v] = u;
-                queue_.push(make_pair(d[v], v));
+                pair v_ = make_pair(d[v], v);
+                queue_.push(v_);
             }
         }
         }
+         queue_.pop();
     }
     Vertex find = end;
     std::vector<Vertex> output;
