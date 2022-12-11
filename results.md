@@ -40,6 +40,7 @@ Set up a samll graph to test for the shortest unweighted path.
 
 Set up a large graph to test for the shortest unwegihted path.
 
+
 4.Dijkstra's O(mlogn)
 
 Algorithm(Sherry Chen):
@@ -56,13 +57,14 @@ Based on the testcase for BFS, added distance and set up cases for less vertex b
 
 Passed the testcases of unweighted at first and passed the testcases of weighted after debugged.
 
+
 5.Delta Stepping O(n+m+dL) O((d^2)L(logn^2))(if parallelizeble)
 
 Algorithm(Yilin Zhang):
 
 Used dalta stepping to find the shortest weighted path.
 
-Used unordered map to store bucket and resize automatically, to avoid unlimited loop caused size(), used a size_t to record bucket size.
+Used unordered map to store bucket which may lead to unlimited loop caused by automatic expansion of size, solved by record the size seperately (by unsigned).
 
 Testcase(Yilin Zhang):
 
@@ -70,7 +72,8 @@ Based on the testcase for BFS, added distance and set up cases for less vertex b
 
 Passed the testcases of unweighted at first and passed the testcases of weighted after debugged.
 
-Used testcase to find unlimited loop (caused by changing of size) solved it by adding new size_t to record.
+Used testcase to find unlimited loop (caused by changing of size) solved it by adding new unsigned to record.
+
 
 PART 2:
 
