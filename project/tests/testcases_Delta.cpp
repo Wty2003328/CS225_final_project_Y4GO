@@ -44,7 +44,7 @@ vector<Vertex> delta_large_graph_path_unweighted(Vertex start, Vertex end)
     };
     vector<double> distances = vector<double>(edges.size(), 1);
     graph_container graph(airports, edges, distances);
-    vector<Vertex> path = graph.solvebyDij(start, end);
+    vector<Vertex> path = graph.solvebyDeltaStepping(start, end);
     return path;
 }
 //**need modification on weight
@@ -85,7 +85,7 @@ vector<Vertex> delta_large_graph_path_weighted(Vertex start, Vertex end)
     };
     vector<double> distances = {1, 6, 7, 5, 3, 2, 4, 2, 2, 5, 3, 1, 3, 5, 1, 2, 4, 3, 1, 2, 2, 2, 5, 3, 3, 1, 3, 3, 7, 1};
     graph_container graph(airports, edges, distances);
-    vector<Vertex> path = graph.solvebyDij(start, end);
+    vector<Vertex> path = graph.solvebyDeltaStepping(start, end);
     return path;
 }
 
@@ -102,7 +102,7 @@ TEST_CASE("Delta-SSSP works on small graph with all out directing unweighted gra
         pair<Vertex, Vertex>("b", "g")};
     vector<double> distances = vector<double>(edges.size(), 1);
     graph_container graph(airports, edges, distances);
-    vector<Vertex> path = graph.solvebyDij("a", "g");
+    vector<Vertex> path = graph.solvebyDeltaStepping("a", "g");
     REQUIRE(path.size() == 3);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
@@ -130,7 +130,7 @@ TEST_CASE("Delta-SSSP works on small graph with undirected unweighted graph", "[
         pair<Vertex, Vertex>("g", "b")};
     vector<double> distances = vector<double>(edges.size(), 1);
     graph_container graph(airports, edges, distances);
-    vector<Vertex> path = graph.solvebyDij("a", "g");
+    vector<Vertex> path = graph.solvebyDeltaStepping("a", "g");
     REQUIRE(path.size() == 3);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
@@ -176,7 +176,7 @@ TEST_CASE("Delta-SSSP works on small graph with all out directing weighted graph
         pair<Vertex, Vertex>("b", "g")};
     vector<double> distances = {2, 2, 3, 3, 3, 4};
     graph_container graph(airports, edges, distances);
-    vector<Vertex> path = graph.solvebyDij("a", "g");
+    vector<Vertex> path = graph.solvebyDeltaStepping("a", "g");
     REQUIRE(path.size() == 3);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");
@@ -204,7 +204,7 @@ TEST_CASE("Delta-SSSP works  on small graph with undirected weighted graph", "[w
         pair<Vertex, Vertex>("g", "b")};
     vector<double> distances = {2, 2, 1, 1, 5, 5, 4, 4, 3, 3, 8, 8};
     graph_container graph(airports, edges, distances);
-    vector<Vertex> path = graph.solvebyDij("a", "g");
+    vector<Vertex> path = graph.solvebyDeltaStepping("a", "g");
     REQUIRE(path.size() == 3);
     REQUIRE(path[0] == "a");
     REQUIRE(path[1] == "b");

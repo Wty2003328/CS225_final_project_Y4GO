@@ -7,6 +7,7 @@
 #include <string>
 #include <queue>
 #include <unordered_map>
+#include <unordered_set>
 #include "../lib/cs225/graph.h"
 class graph_container
 {
@@ -22,13 +23,21 @@ public:
 	
 private:
 	Graph inner;
+	double maxWeight = 0;
+	double maxDegree = 0;
+
+	unsigned curr = 0;
+	unsigned bucketSize = 0;
+	unsigned afterDeleteSize = 0;
 	std::vector<Vertex> airports;
 
 	std::unordered_map<Vertex, double> dist;
 	std::unordered_map<Vertex, Vertex> prev;
-	std::vector<vector<Vertex>> bucket;
-	double delta = 0.0;
+	std::unordered_map<int, std::vector<Vertex>> bucket;
+	
+	double delta = 3.0;
 
-	void findRoutes(vector<Vertex> newBucket, string kind);
+	std::vector<std::pair<Vertex, std::pair<Vertex, double>>> findRoutes(vector<Vertex> newBucket, string kind);
+	void extends(std::vector<std::pair<Vertex, std::pair<Vertex, double>>> all_extend);
 	void extend(Vertex nowV, double changed_length, Vertex p);	
 };

@@ -64,8 +64,10 @@ int main()
     // print out output calculated
     vector<Vertex> min_transfer = calculator.solvebyBFS(start, end);
     vector<Vertex> min_dist = calculator.solvebyDij(start, end);
+    vector<Vertex> min_deltaStepping = calculator.solvebyDeltaStepping(start, end);
     vector<string> min_transfer_airlineinfo = information.airlineinfo(min_transfer);
     vector<string> min_dist_airlineinfo = information.airlineinfo(min_dist);
+    vector<string> min_deltaStepping_airlineinfo = information.airlineinfo(min_deltaStepping);
     cout << "\n"
          << "minimum transfer route:" << endl;
     for (auto it = min_transfer.begin(); it != min_transfer.end(); ++it)
@@ -87,6 +89,17 @@ int main()
     for (unsigned idx = 0; idx < min_dist_airlineinfo.size(); idx++)
     {
         cout << "Section" << idx + 1 << ": " << min_dist_airlineinfo[idx] << endl;
+    }
+    cout << "\n"
+         << "minimum deltaStepping route:" << endl;
+    for (auto it = min_deltaStepping.begin(); it != min_deltaStepping.end(); ++it)
+    {
+        cout << *it << endl;
+    }
+    cout << "Airlines available for corresponding route section: " << endl;
+    for (unsigned idx = 0; idx < min_deltaStepping_airlineinfo.size(); idx++)
+    {
+        cout << "Section" << idx + 1 << ": " << min_deltaStepping_airlineinfo[idx] << endl;
     }
     return 0;
 }
