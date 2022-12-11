@@ -63,7 +63,14 @@ std::vector<std::string> info_container::airlineinfo(const std::vector<std::stri
         {
             dest_code = name_airport.find(route[idx])->second.airport_ICAO_;
         }
-        std::string airline_codes = pair_route.find(source_code + "-" + dest_code)->second;
+        auto it = pair_route.find(source_code + "-" + dest_code);
+        if (it == pair_route.end())
+        {
+            result.clear();
+            result.push_back("no recorded airline, but route is available.");
+            break;
+        }
+        std::string airline_codes = it->second;
         std::vector<std::string> airline_codes_vector;
         divide(airline_codes, ',', airline_codes_vector);
         std::string airline_names = "";
