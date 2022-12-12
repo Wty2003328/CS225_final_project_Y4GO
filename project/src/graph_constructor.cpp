@@ -160,8 +160,11 @@ std::vector<Vertex> graph_container::solvebyDij(Vertex start, Vertex end)
     return output2;
 }
 
-
-
+/*
+    graph solver by deltaStepping-SSSP algorithm
+    input: two vertices, a start and an end
+    output: a vector of vertices that passed by when travelling from start to end
+*/
 std::vector<Vertex> graph_container::solvebyDeltaStepping(Vertex start, Vertex end) {
     // map<Vertex, double> dist;
     // map<Vertex, Vertex> prev;
