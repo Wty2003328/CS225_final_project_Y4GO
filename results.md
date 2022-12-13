@@ -95,4 +95,5 @@ We decided to use 3 kinds of algorithms to find the shortest path base on the da
 
 Now in our main function, we can input the departure and the destination to find out the shortest path and the availiable airlines.
 
+（https://github.com/Wty2003328/CS225_final_project_Y4GO/blob/main/Figures.png）
 
