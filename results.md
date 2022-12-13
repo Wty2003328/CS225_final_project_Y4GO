@@ -36,8 +36,6 @@ Can find the path for unweighted graph clearly but can not solve weighted path.
 
 Testcase(Jerry Wu):
 
-https://github.com/Wty2003328/CS225_final_project_Y4GO/blob/main/project/tests/test_graph_large.jpg
-
 Set up a samll graph to test for the shortest unweighted path.
 
 Set up a large graph to test for the shortest unwegihted path.
