@@ -77,3 +77,22 @@ Used testcase to find unlimited loop (caused by changing of size) solved it by a
 
 PART 2:
 
+Our leading questions:
+
+To complete shortest path algorithm to find the preferred routes for the Open Flight Problem.
+
+Apply the knowledge and algorithms we have learned this semester about graph to the dataset of flights.
+
+Realise transforming theoretical knowledge into tools that make life easier.
+
+Conclusion:
+
+Our leading questions and goals have compeleted.
+
+And our data outcome also met our goals.
+
+We decided to use 3 kinds of algorithms to find the shortest path base on the data on OpenFlight.
+
+Now in our main function, we can input the departure and the destination to find out the shortest path and the availiable airlines.
+
+
